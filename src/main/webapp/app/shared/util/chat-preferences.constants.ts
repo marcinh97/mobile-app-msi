@@ -14,18 +14,21 @@ export const PREFERENCES = [
       'Skating',
       'Snowboarding'
     ],
-    categoryColor: '#a486aa'
+    categoryColor: '#a486aa',
+    icon: 'volleyball-ball'
   },
   {
     id: 'Cat2',
     category: 'Health',
     subcategories: ['Coronavirus', 'Life&Death'],
-    categoryColor: '#6f8eaa'
+    categoryColor: '#6f8eaa',
+    icon: 'heartbeat'
   },
   {
     id: 'Cat3',
     category: 'TV & movies',
     subcategories: ['Tv shows', 'Netflix'],
-    categoryColor: '#aa8652'
+    categoryColor: '#aa8652',
+    icon: 'film'
   }
 ];
