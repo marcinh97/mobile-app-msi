@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Alert, Row, Col } from 'reactstrap';
-import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { AvForm, AvField, AvGroup, AvInput, AvCheckboxGroup, AvCheckbox } from 'availity-reactstrap-validation';
 import {PreferencesSingleItem} from "app/modules/chat/preferences/components/preferences-single-item";
 import {PREFERENCES} from "app/shared/util/chat-preferences.constants";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import TagsInput from 'react-tagsinput'
 
 export interface IChatPreferencesModalProps {
   showModal: boolean;
@@ -16,18 +17,12 @@ const handleValidSubmit = (event, values) => {
 };
 /* eslint-disable no-console */
 class PreferencesModal extends React.Component<IChatPreferencesModalProps> {
-
-  show(e) {
-    console.log("Clicked")
-    console.log(e)
-  }
-
   render(): React.ReactNode {
     const { handleClose } = this.props;
     return (
       <Modal isOpen={this.props.showModal} toggle={handleClose} backdrop="static" id="chat-preferences-modal" autoFocus={false}>
         {/*<h4 className={'chat-preferences-header'}></h4>*/}
-        <AvForm onSubmit={handleValidSubmit}>
+        <AvForm onValidSubmit={handleValidSubmit}>
           <ModalHeader toggle={handleClose}>Tell us what you are interested in!</ModalHeader>
           <ul className={'chat-preferences-items'}>
             {PREFERENCES.map(categoryItem =>

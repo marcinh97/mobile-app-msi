@@ -90,6 +90,9 @@ Browser Upgrade Prompt
   padding-inline-start: 0;
   padding: 5px;
 }
+.form-check-input {
+  display: none;
+}
 
 .chat-item-header {
   padding: 5px;
@@ -103,22 +106,37 @@ Browser Upgrade Prompt
 }
 
 .chat-all-topics {
+  position: relative;
   > input[type='checkbox'] {
     display: none;
   }
 }
 
-.chat-topic-label {
+.form-check {
   padding: 0 5px 0 5px;
   margin-right: 2px;
+  float: left;
 }
 
-.chat-topic-checkbox:checked + .chat-topic-label {
+.form-check-label {
+  padding: 0;
+  margin: 0 5px 5px 5px;
+}
+
+.form-check-label:hover {
+  cursor: pointer;
+  color: gray;
+}
+
+.form-check-input:checked + .form-check-label {
+  margin: 0 5px 5px 5px;
   border-style: solid;
   border-width: 1px;
-  border-color: rgba(169, 167, 163, 0.98);
+  //border-color: rgba(169, 167, 163, 0.98);
   font-weight: bold;
   color: #272727;
+  background: #b2f6ff38;
+  border-color: rgba(235, 235, 235, 0.98);
 }
 
 .save-preferences-button {
