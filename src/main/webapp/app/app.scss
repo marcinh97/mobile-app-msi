@@ -78,7 +78,7 @@ Browser Upgrade Prompt
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 500px) {
   .chat-preferences-item {
     width: 100%;
     padding: 10px;
@@ -93,6 +93,7 @@ Browser Upgrade Prompt
 
 .chat-item-header {
   padding: 5px;
+  margin-bottom: 0;
 }
 
 .chat-single-item:first-child {
@@ -101,14 +102,56 @@ Browser Upgrade Prompt
   }
 }
 
-.chat-topic-checkbox:checked + .chat-topic-label {
-  color: rebeccapurple !important;
-  font-weight: bold !important;
-}
-
 .chat-all-topics {
   > input[type='checkbox'] {
-    //display: none;
+    display: none;
+  }
+}
+
+.chat-topic-label {
+  padding: 0 5px 0 5px;
+  margin-right: 2px;
+}
+
+.chat-topic-checkbox:checked + .chat-topic-label {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(169, 167, 163, 0.98);
+  font-weight: bold;
+  color: #272727;
+}
+
+.save-preferences-button {
+  width: 100%;
+  padding: 5px;
+  margin: auto;
+  border-style: none;
+  background: #c2e1dc80;
+  cursor: pointer;
+  color: #4e5357;
+}
+
+.save-preferences-button:hover {
+  font-weight: bold;
+}
+
+.other-preferences-header {
+  color: black;
+}
+
+.other-preferences-textbox {
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #eceeef;
+}
+
+@media (max-width: 385px) {
+  .btn-primary {
+    width: 100%;
+  }
+  .btn-secondary {
+    width: 100%;
   }
 }
 
