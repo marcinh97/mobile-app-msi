@@ -8,8 +8,8 @@ import lombok.Value;
  */
 @Value
 @Builder
-public class Message {
-    String senderId;
+public class MessageDTO {
+    String senderName;
     String content;
     MessageType type;
 }
