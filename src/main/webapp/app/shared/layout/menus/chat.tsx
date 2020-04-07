@@ -8,6 +8,9 @@ const chatMenuItems = (
     <MenuItem icon="wrench" to="/account/preferences">
       Preferences
     </MenuItem>
+    <MenuItem icon="wrench" to="/account/chat">
+      Chat with someone!
+    </MenuItem>
   </>
 )
 

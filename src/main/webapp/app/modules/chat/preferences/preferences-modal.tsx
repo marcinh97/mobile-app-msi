@@ -13,7 +13,6 @@ export interface IChatPreferencesModalProps {
 }
 
 const handleValidSubmit = (event, values) => {
-  console.log(values)
 };
 /* eslint-disable no-console */
 class PreferencesModal extends React.Component<IChatPreferencesModalProps> {

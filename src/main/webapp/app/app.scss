@@ -129,14 +129,8 @@ Browser Upgrade Prompt
 }
 
 .form-check-input:checked + .form-check-label {
-  margin: 0 5px 5px 5px;
-  border-style: solid;
-  border-width: 1px;
-  //border-color: rgba(169, 167, 163, 0.98);
   font-weight: bold;
-  color: #272727;
-  background: #b2f6ff38;
-  border-color: rgba(235, 235, 235, 0.98);
+  color: #524ef7;
 }
 
 .save-preferences-button {
@@ -176,6 +170,40 @@ Browser Upgrade Prompt
 .pref-single-item {
   position: relative;
 }
+
+.form-control-photo {
+  height: 300px;
+  margin: auto;
+}
+
+.profile-photo {
+  margin: auto;
+  background: no-repeat center center;
+}
+
+@media (max-width: 420px) {
+  .profile-photo {
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+  }
+}
+
+@media (min-width: 420px) {
+  .profile-photo {
+    width: 350px;
+    height: 300px;
+  }
+}
+.justify-content-center {
+  margin-top: 20px;
+}
+
+// profile-image:
+
+//@media (max-width: ) {
+//
+//}
 
 /* ==========================================================================
 Custom button styles
