@@ -5,7 +5,6 @@ import { AvForm, AvField, AvGroup, AvInput, AvCheckboxGroup, AvCheckbox } from '
 import {PreferencesSingleItem} from "app/modules/chat/preferences/components/preferences-single-item";
 import {PREFERENCES} from "app/shared/util/chat-preferences.constants";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import TagsInput from 'react-tagsinput'
 
 export interface IChatPreferencesModalProps {
   showModal: boolean;
@@ -20,7 +19,6 @@ class PreferencesModal extends React.Component<IChatPreferencesModalProps> {
     const { handleClose } = this.props;
     return (
       <Modal isOpen={this.props.showModal} toggle={handleClose} backdrop="static" id="chat-preferences-modal" autoFocus={false}>
-        {/*<h4 className={'chat-preferences-header'}></h4>*/}
         <AvForm onValidSubmit={handleValidSubmit}>
           <ModalHeader toggle={handleClose}>Tell us what you are interested in!</ModalHeader>
           <ul className={'chat-preferences-items'}>

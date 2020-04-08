@@ -99,12 +99,6 @@ Browser Upgrade Prompt
   margin-bottom: 0;
 }
 
-.chat-single-item:first-child {
-  > .chat-item-header {
-    background: #ff00002e;
-  }
-}
-
 .chat-all-topics {
   position: relative;
   > input[type='checkbox'] {
@@ -133,20 +127,6 @@ Browser Upgrade Prompt
   color: #524ef7;
 }
 
-.save-preferences-button {
-  width: 100%;
-  padding: 5px;
-  margin: auto;
-  border-style: none;
-  background: #c2e1dc80;
-  cursor: pointer;
-  color: #4e5357;
-}
-
-.save-preferences-button:hover {
-  font-weight: bold;
-}
-
 .other-preferences-header {
   color: black;
 }
@@ -171,11 +151,6 @@ Browser Upgrade Prompt
   position: relative;
 }
 
-.form-control-photo {
-  height: 300px;
-  margin: auto;
-}
-
 .profile-photo {
   margin: auto;
   background: no-repeat center center;
@@ -198,12 +173,6 @@ Browser Upgrade Prompt
 .justify-content-center {
   margin-top: 20px;
 }
-
-// profile-image:
-
-//@media (max-width: ) {
-//
-//}
 
 /* ==========================================================================
 Custom button styles
