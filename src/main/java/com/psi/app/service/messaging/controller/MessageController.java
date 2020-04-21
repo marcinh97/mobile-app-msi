@@ -32,7 +32,7 @@ public class MessageController {
 
 
     @SubscribeMapping(DESTINATION)
-    public MessageDTO enqueueUser(@Payload MessageDTO message, Principal principal) {
+    public MessageDTO enqueueUser(Principal principal) {
         User user = userRepository.findOneByLogin(principal.getName()).get();
         if (matchmaking.areThereAnyWaitingUsers()) {
             matchmaking.addWaitingUser(user);
