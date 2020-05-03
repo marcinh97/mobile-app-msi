@@ -1,7 +1,7 @@
 import React from "react";
 import {IChatContact} from "app/shared/model/chat.model";
 
-const ContactThumbnail = ({name, urlAddress, currentlyChosen}) =>
+export const ContactThumbnail = ({name="", urlAddress, currentlyChosen=false}) =>
     <div
       className={`chat-contact-profile ${currentlyChosen ? "" : "chat-contact-other"}`}
       style={{backgroundImage: `url(${urlAddress})`}}

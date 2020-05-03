@@ -12,12 +12,12 @@ import {Sidebar} from "app/modules/chat/chat-window/components/sidebar";
 import SidebarContainer from "app/modules/chat/chat-window/components/sidebar-container";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
 
-const Chat = ({ message }) => {
-  const {text, is_user_msg} = message;
-  return (
-    <span className={`Chat ${is_user_msg ? "is-user-msg" : ""}`} >{text}</span>
-  );
-};
+// const Chat = ({ message }) => {
+// //   const {text, is_user_msg} = message;
+// //   return (
+// //     <span className={`Chat ${is_user_msg ? "is-user-msg" : ""}`} >{text}</span>
+// //   );
+// // };
 
 
 // const Chats = (props) => {
