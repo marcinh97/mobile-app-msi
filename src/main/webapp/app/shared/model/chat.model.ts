@@ -41,6 +41,22 @@ export const defaultValueMessages: ReadonlyArray<IMessage> = [
     sentBy: 'admin',
     isUserMessage: true,
     date: new Date()
+  },
+  {
+    id: '4',
+    number: 3,
+    text: 'Spoko',
+    sentBy: 'user',
+    isUserMessage: false,
+    date: new Date()
+  },
+  {
+    id: '5',
+    number: 4,
+    text: 'A u ciebie co tam  hihihihi',
+    sentBy: 'user',
+    isUserMessage: false,
+    date: new Date()
   }
 ];
 

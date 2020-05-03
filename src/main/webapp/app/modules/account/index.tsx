@@ -7,6 +7,7 @@ import Password from './password/password';
 import Preferences from '../chat/preferences/preferences'
 import ChatWindow from "app/modules/chat/chat-window/chat-window";
 import {Profile} from "app/modules/account/profile/profile";
+import ChatPairing from "app/modules/chat/waiting/chat-pairing";
 
 const Routes = ({ match }) => (
   <div>
@@ -15,6 +16,7 @@ const Routes = ({ match }) => (
     <ErrorBoundaryRoute path={`${match.url}/preferences`} component={Preferences} />
     <ErrorBoundaryRoute path={`${match.url}/profile`} component={Profile} />
     <ErrorBoundaryRoute path={`${match.url}/chat`} component={ChatWindow} />
+    <ErrorBoundaryRoute path={`${match.url}/chatwait`} component={ChatPairing} />
   </div>
 );
 

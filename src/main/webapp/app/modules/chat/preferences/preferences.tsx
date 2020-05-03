@@ -12,6 +12,7 @@ const PreferencesPage = (props) => {
     setShowModal(false);
     props.history.push('/');
   };
+
   return (
     <div>
       <PreferencesModal showModal={true} handleClose={handleClose}/>

@@ -6,20 +6,20 @@ import {PreferencesSingleItem} from "app/modules/chat/preferences/components/pre
 import {PREFERENCES} from "app/shared/util/chat-preferences.constants";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+
 export interface IChatPreferencesModalProps {
   showModal: boolean;
   handleClose: Function;
+  handleValidSubmit: Function
 }
-
-const handleValidSubmit = (event, values) => {
-};
 /* eslint-disable no-console */
+
 class PreferencesModal extends React.Component<IChatPreferencesModalProps> {
   render(): React.ReactNode {
     const { handleClose } = this.props;
     return (
       <Modal isOpen={this.props.showModal} toggle={handleClose} backdrop="static" id="chat-preferences-modal" autoFocus={false}>
-        <AvForm onValidSubmit={handleValidSubmit}>
+        <AvForm onValidSubmit={this.props.handleValidSubmit}>
           <ModalHeader toggle={handleClose}>Tell us what you are interested in!</ModalHeader>
           <ul className={'chat-preferences-items'}>
             {PREFERENCES.map(categoryItem =>
@@ -40,7 +40,7 @@ class PreferencesModal extends React.Component<IChatPreferencesModalProps> {
               &nbsp; Close
             </Button>
             <Button color="primary" type="submit">
-              Save my preferences
+              Let's chat!
             </Button>
           </ModalFooter>
         </AvForm>
@@ -48,5 +48,6 @@ class PreferencesModal extends React.Component<IChatPreferencesModalProps> {
     )
   }
 }
+
 
 export default PreferencesModal;
