@@ -2,19 +2,20 @@ import React, {EventHandler} from "react";
 
 export interface IInput {
   handleSendingMessage: EventHandler<any>;
-  handleChange: EventHandler<any>;
+  handleInputChange: EventHandler<any>;
   value: string;
 }
+
 export const Input = (props : IInput) => {
-  const { handleSendingMessage, handleChange, value } = props
+  const {handleSendingMessage, handleInputChange, value} = props
   return (
-    <form className="Message" onSubmit={handleSendingMessage}>
+    <form className="Message" onSubmit={() => handleSendingMessage(value)}>
       <input
         className="Message__input"
-        onChange={handleChange}
+        onChange={handleInputChange}
         value={value}
         placeholder="write a message"
       />
     </form>
   )
-}
+};

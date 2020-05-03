@@ -1,10 +1,5 @@
 import React, {EventHandler} from "react"
-import {IChatContact} from "app/shared/model/chat.model";
 import {ContactThumbnail} from "app/modules/chat/chat-window/components/sidebar";
-import {IRootState} from "app/shared/reducers";
-import {handleInputChange} from "app/modules/chat/chatTyping.reducer";
-import {handleSendingMessage, resetLoadingAct} from "app/modules/chat/chat.reducer";
-import {connect} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export interface IMessageHeader {
@@ -14,7 +9,7 @@ export interface IMessageHeader {
   resetLoadingAct: EventHandler<any>
 }
 
-const CurrentMessageHeader = (props: IMessageHeader) => {
+export const CurrentMessageHeader = (props: IMessageHeader) => {
   const { name, profileUrl, interests } = props
   return (
     <div className="current-message-header">
@@ -28,12 +23,4 @@ const CurrentMessageHeader = (props: IMessageHeader) => {
       </div>
     </div>
   )
-}
-
-const mapStateToProps = (storeState: IRootState) => ({
-});
-
-const mapDispatchToProps = {resetLoadingAct};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentMessageHeader);
-
+};

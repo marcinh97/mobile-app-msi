@@ -2,7 +2,7 @@ import React from "react";
 import '../chat-styles.scss'
 import {ContactThumbnail} from "app/modules/chat/chat-window/components/sidebar";
 
-export const Empty = props => {
+export const Empty = () => {
   return (
     <div className="empty-conversation">
       <ContactThumbnail name="Anna Kowal"
@@ -15,4 +15,4 @@ export const Empty = props => {
       <h4 className="empty-conversation-prompt">Don't be so shy - say hello!</h4>
     </div>
   )
-}
+};

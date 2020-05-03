@@ -1,9 +1,5 @@
 import React from "react";
 import {IMessage} from "app/shared/model/chat.model";
-import CurrentMessageHeader from "app/modules/chat/chat-window/components/current-message-header";
-import {ContactThumbnail} from "app/modules/chat/chat-window/components/sidebar";
-
-const Message = () => <div></div>
 
 export interface IMessagesList {
   messages: ReadonlyArray<IMessage>
@@ -28,14 +24,12 @@ const Chat = ({ message, isCurrentUserMessage }) => {
 };
 
 export const Messages = (props: IMessagesList) => {
-  const {messages} = props
+  const {messages} = props;
   return (
     <div className="message-list">
-      {/*<div className="all-messages">*/}
-        {messages.map(m =>
-          <Chat message={m.text} isCurrentUserMessage={m.isUserMessage}  key={m.number}/>
-        )}
-      {/*</div>*/}
+      {messages.map(m =>
+        <Chat message={m.text} isCurrentUserMessage={m.isUserMessage} key={m.number}/>
+      )}
     </div>
   )
-}
+};
