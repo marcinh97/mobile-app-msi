@@ -8,7 +8,6 @@ import {connect} from "react-redux";
 import SidebarContainer from "app/modules/chat/chat-window/components/sidebar-container";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
 
-
 const Chats = () => {
   return (
     <div className="chat-window">

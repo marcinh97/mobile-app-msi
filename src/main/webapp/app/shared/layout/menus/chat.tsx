@@ -5,9 +5,6 @@ import {NavDropdown} from "app/shared/layout/menus/menu-components";
 
 const chatMenuItems = (
   <>
-    <MenuItem icon="wrench" to="/account/preferences">
-      Preferences
-    </MenuItem>
     <MenuItem icon="wrench" to="/account/chat">
       Chat with someone!
     </MenuItem>
