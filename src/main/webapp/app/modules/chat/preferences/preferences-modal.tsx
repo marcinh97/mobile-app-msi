@@ -40,7 +40,7 @@ class PreferencesModal extends React.Component<IChatPreferencesModalProps> {
               &nbsp; Close
             </Button>
             <Button color="primary" type="submit">
-              Let's chat!
+              Let&apos;s chat!
             </Button>
           </ModalFooter>
         </AvForm>

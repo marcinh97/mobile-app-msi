@@ -17,9 +17,9 @@ export const Empty = (props: IEmptyConversationTemplate) => {
       />
       <h6>{name}</h6>
       <div className="mutual-interests">
-        {interests.map(intr => <span>{intr} </span>)}
+        {interests.map((intr, i) => <span key={name+"-intr"+i}>{intr} </span>)}
       </div>
-      <h4 className="empty-conversation-prompt">Don't be so shy - say hello!</h4>
+      <h4 className="empty-conversation-prompt">Don&apos;t be so shy - say hello!</h4>
     </div>
   )
 };

@@ -19,6 +19,7 @@ export const Sidebar = (props: ISidebarProps) => {
       {contacts.map((c, index) =>
           <ContactThumbnail
             name={c.name}
+            key={"cind"+index}
             urlAddress={c.profileImage}
             currentlyChosen={index === 0}
           />

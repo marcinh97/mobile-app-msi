@@ -25,8 +25,8 @@ const ChatPairing = props => {
             cancelButtonColor='#d33'
             confirmButtonText='Yes, delete it!'
             onConfirm={props.toggleLoading}
-            onCancel={() => console.log("CANCEL")}
-            onClose={() => console.log("CLOSE")}
+            onCancel={() => {}}
+            onClose={() => {}}
           />
         </>
         :

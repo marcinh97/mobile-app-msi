@@ -79,14 +79,14 @@ export const togglePreferencesModalAction = () => ({
 
 export const handleSendingMessage = mess => dispatch => {
   event.preventDefault();
-  console.log('Wiadomosc do wysylki:');
-  console.log(mess);
+  // console.log('Wiadomosc do wysylki:');
+  // console.log(mess);
   // const val = "ABC"
   const text = mess;
   const obj = {
     id: '4',
     number: 3,
-    text: text,
+    text,
     sentBy: 'admin',
     isUserMessage: true,
     date: new Date()
