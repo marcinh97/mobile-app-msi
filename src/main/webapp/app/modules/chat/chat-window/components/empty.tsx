@@ -2,15 +2,22 @@ import React from "react";
 import '../chat-styles.scss'
 import {ContactThumbnail} from "app/modules/chat/chat-window/components/sidebar";
 
-export const Empty = () => {
+export interface IEmptyConversationTemplate {
+  name: string,
+  profileUrl: string,
+  interests: ReadonlyArray<string>
+}
+
+export const Empty = (props: IEmptyConversationTemplate) => {
+  const { name, profileUrl, interests } = props
   return (
     <div className="empty-conversation">
-      <ContactThumbnail name="Anna Kowal"
-                        urlAddress="https://www.dw.com/image/53138967_303.jpg"
-                        currentlyChosen={false}/>
-      <h6>Anna Kowalczyk</h6>
+      <ContactThumbnail
+        urlAddress={profileUrl}
+      />
+      <h6>{name}</h6>
       <div className="mutual-interests">
-        Football, volleyball
+        {interests.map(intr => <span>{intr} </span>)}
       </div>
       <h4 className="empty-conversation-prompt">Don't be so shy - say hello!</h4>
     </div>

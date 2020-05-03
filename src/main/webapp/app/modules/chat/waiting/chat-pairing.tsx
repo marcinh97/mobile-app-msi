@@ -4,12 +4,11 @@ import {Loader} from "app/modules/chat/waiting/components/loader";
 import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
 import {toggleFoundUser, toggleLoading} from "app/modules/chat/chat.reducer";
-import Chats from "app/modules/chat/chat-window/chat-window";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
 import SweetAlert from 'sweetalert2-react';
 
 const ChatPairing = props => {
-  const { isLoading } = props
+  const { isLoading } = props;
   return (
     <div style={{height: "100%"}}>
       {isLoading ?
@@ -39,7 +38,7 @@ const ChatPairing = props => {
 
     </div>
   )
-}
+};
 
 
 const mapStateToProps = (storeState: IRootState) => ({

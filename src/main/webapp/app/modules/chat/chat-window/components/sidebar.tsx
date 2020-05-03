@@ -12,7 +12,7 @@ export interface ISidebarProps {
 }
 
 export const Sidebar = (props: ISidebarProps) => {
-  const {contacts} = props
+  const {contacts} = props;
 
   return (
     <div className="chat-sidebar">
