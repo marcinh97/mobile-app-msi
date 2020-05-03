@@ -11,16 +11,19 @@ export interface IMessagesList {
 
 const Chat = ({ message, isCurrentUserMessage }) => {
   return (
-    <>
+    <div className="mess-container">
     {isCurrentUserMessage?
-      <span className={`Chat ${isCurrentUserMessage ? "is-user-msg" : ""}`}>{message}</span>
+      <>
+        {/*<div className="curr-user-hour"> 12:03 </div>*/}
+        <div className="basic-mess curr-user-mess">{message}</div>
+      </>
       :
-      <div style={{display: "flex", float: "left"}}>
-        <ContactThumbnail urlAddress={"https://www.dw.com/image/53138967_303.jpg"}/>
-        <div className={`Chat ${isCurrentUserMessage ? "is-user-msg" : ""}`}>{message}</div>
-      </div>
+      <>
+        <div className="basic-mess other-user-mess">{message}</div>
+        {/*<div className="other-user-hour"> 14:44 </div>*/}
+      </>
     }
-    </>
+    </div>
   );
 };
 

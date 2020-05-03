@@ -3,7 +3,6 @@ import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
 import {Messages} from "app/modules/chat/chat-window/components/messages";
 import InputContainer from "app/modules/chat/chat-window/components/input-container";
-import {messages} from "app/config/constants";
 import {Empty} from "app/modules/chat/chat-window/components/empty";
 import CurrentMessageHeader from "app/modules/chat/chat-window/components/current-message-header";
 

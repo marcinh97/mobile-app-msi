@@ -5,6 +5,7 @@ import {IRootState} from "app/shared/reducers";
 import {handleInputChange} from "app/modules/chat/chatTyping.reducer";
 import {handleSendingMessage, resetLoadingAct} from "app/modules/chat/chat.reducer";
 import {connect} from "react-redux";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export interface IMessageHeader {
   name: string,
@@ -19,12 +20,12 @@ const CurrentMessageHeader = (props: IMessageHeader) => {
     <div className="current-message-header">
       <ContactThumbnail urlAddress={profileUrl}/>
       <div className="current-speaker-info">
-        <h6 style={{padding: "10px", color: "white"}}>{name}</h6>
-        {interests.map((interest, i) => <span key={"interest-"+i} style={{color: "white"}} className="current-speaker-interests">interest  </span>)}
+        <FontAwesomeIcon onClick={props.resetLoadingAct} className="exit-conversation-icon" icon="times" fixedWidth />
+        <div className="header-name" style={{color: "white"}}>{name}</div>
+        <div className="header-interests">
+          {interests.map((interest, i) => <span key={"interest-"+i} style={{color: "white"}} className="current-speaker-interests">interest  </span>)}
+        </div>
       </div>
-      <button className="stop-conversation"
-              onClick={props.resetLoadingAct}
-      >STOP</button>
     </div>
   )
 }

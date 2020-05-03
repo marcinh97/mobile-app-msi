@@ -11,7 +11,7 @@ import SweetAlert from 'sweetalert2-react';
 const ChatPairing = props => {
   const { isLoading } = props
   return (
-    <div>
+    <div style={{height: "100%"}}>
       {isLoading ?
         <>
           <Loader/>
