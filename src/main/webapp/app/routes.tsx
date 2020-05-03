@@ -25,6 +25,11 @@ const Admin = Loadable({
   loading: () => <div>loading ...</div>
 });
 
+const Chat = Loadable({
+  loader: () => import(/* webpackChunkName: "chat" */ 'app/modules/chat'),
+  loading: () => <div>loading...</div>
+});
+
 const Routes = () => (
   <div className="view-routes">
     <Switch>
@@ -38,6 +43,7 @@ const Routes = () => (
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <ErrorBoundaryRoute path="/" exact component={Home} />
       <PrivateRoute path="/" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+      <PrivateRoute path="/chat" component={Chat} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>

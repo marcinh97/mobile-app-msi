@@ -31,7 +31,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
               <Col md="12">
                 {loginError ? (
                   <Alert color="danger">
-                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                    <strong>Incorrect login or password!</strong> Please try again.
                   </Alert>
                 ) : null}
               </Col>
@@ -60,9 +60,6 @@ class LoginModal extends React.Component<ILoginModalProps> {
               </Col>
             </Row>
             <div className="mt-1">&nbsp;</div>
-            <Alert color="warning">
-              <Link to="/account/reset/request">Did you forget your password?</Link>
-            </Alert>
             <Alert color="warning">
               <span>You don&apos;t have an account yet?</span> <Link to="/account/register">Register a new account</Link>
             </Alert>

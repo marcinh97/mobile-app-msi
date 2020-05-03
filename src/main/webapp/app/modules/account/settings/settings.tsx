@@ -34,7 +34,14 @@ export const SettingsPage = (props: IUserSettingsProps) => {
         <Col md="8">
           <h2 id="settings-title">User settings for {props.account.login}</h2>
           <AvForm id="settings-form" onValidSubmit={handleValidSubmit}>
-            {/* First name */}
+            <div className="profile-photo" style={{backgroundImage: `url("https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half-caption/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=0hb44OrI")`}}>
+            </div>
+            <AvField
+              name="profile-photo"
+              label="Your profile photo"
+              type="file"
+              accept="image/*"
+            />
             <AvField
               className="form-control"
               name="firstName"

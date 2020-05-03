@@ -8,6 +8,9 @@ import { NavDropdown } from './menu-components';
 
 const accountMenuItemsAuthenticated = (
   <>
+    <MenuItem icon="sign-in-alt" to="/account/profile">
+      Profile
+    </MenuItem>
     <MenuItem icon="wrench" to="/account/settings">
       Settings
     </MenuItem>
