@@ -22,6 +22,7 @@ public class WebSocketEventHandler {
     @EventListener
     public void handleSessionDisconnectEvent(SessionDisconnectEvent disconnectEvent) {
         User disconnectedUser = userRepository.findOneByLogin(disconnectEvent.getUser().getName()).get();
+        System.out.println("User disconnected: "+ disconnectEvent.getUser().getName());
         User unMatchedUser = matchmaking.unMatch(disconnectedUser);
 
         messagingTemplate.convertAndSendToUser(unMatchedUser.getLogin(),

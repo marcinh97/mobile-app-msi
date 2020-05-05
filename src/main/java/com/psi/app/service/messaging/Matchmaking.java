@@ -15,7 +15,7 @@ public class Matchmaking {
         waitingUsers.add(user);
     }
     public boolean areThereAnyWaitingUsers() {
-        return waitingUsers.isEmpty();
+        return !waitingUsers.isEmpty();
     }
 
     public User getMatchedUser(User user) {

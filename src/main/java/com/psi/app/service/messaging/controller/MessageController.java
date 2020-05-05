@@ -30,17 +30,19 @@ public class MessageController {
     private final Matchmaking matchmaking;
 
 
-
-    @SubscribeMapping(DESTINATION)
+    @MessageMapping("/joinChat")
+    @SendToUser(DESTINATION)
     public MessageDTO enqueueUser(Principal principal) {
         User user = userRepository.findOneByLogin(principal.getName()).get();
-        if (matchmaking.areThereAnyWaitingUsers()) {
+        if (!matchmaking.areThereAnyWaitingUsers()) {
             matchmaking.addWaitingUser(user);
+            System.out.println("CINEK: PRZESLANO ENQUED");
             return messageDTOFactory.createEnquedMessage();
         } else {
             User matchedUser = matchmaking.match(user);
             messagingTemplate.convertAndSendToUser(matchedUser.getLogin(), DESTINATION,
                 messageDTOFactory.createMatchedMessage(user.getLogin()));
+            System.out.println("CINEK: PRZESLANO MATCHED");
             return messageDTOFactory.createMatchedMessage(matchedUser.getLogin());
         }
     }
