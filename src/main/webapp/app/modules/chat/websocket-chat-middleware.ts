@@ -34,6 +34,7 @@ const subscribe = () => {
   connection.then(() => {
     subscriber = stompClient.subscribe('/user/chat', data => {
       //listenerObserver.next(JSON.parse(data.body));
+      console.log('Cos przyszlo');
       console.log(data);
     });
     //join chat
