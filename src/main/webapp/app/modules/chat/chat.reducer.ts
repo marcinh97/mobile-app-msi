@@ -1,4 +1,5 @@
 import { defaultValueMessages, IMessage } from 'app/shared/model/chat.model';
+import { connect } from 'app/modules/chat/websocket-chat-middleware';
 
 export const ACTION_TYPES = {
   SEND_MESSAGE_ACTION: 'SEND_MESSAGE_ACTION',
@@ -6,7 +7,8 @@ export const ACTION_TYPES = {
   TOGGLE_LOADING: 'TOGGLE_LOADING',
   TOGGLE_FOUND_USER: 'TOGGLE_FOUND_USER',
   TOGGLE_PREFERENCES: 'TOGGLE_PREFERENCES',
-  RESET_LOADING: 'RESET_LOADING'
+  RESET_LOADING: 'RESET_LOADING',
+  FIND_SOMEONE_TO_CHAT: 'FIND_SOMEONE_TO_CHAT'
 };
 
 // reducer
@@ -112,7 +114,6 @@ export const resetLoadingAct = () => dispatch => {
 
 export const toggleLoading = () => dispatch => {
   dispatch(toggleIsLoading());
-  // console.log("CLICK")
 };
 
 export const toggleFoundUser = () => dispatch => {
@@ -126,6 +127,8 @@ export const togglePreferencesModal = () => dispatch => {
 export const handleValidSubmit = (event, values) => dispatch => {
   // console.log(values) // przygotowane do zapisu
   // browserHistory.push('/account/chatwait')
+
   window.location.href = '/account/chatwait';
+
   // browserHistory
 };

@@ -6,16 +6,30 @@ import {connect} from "react-redux";
 import {toggleFoundUser, toggleLoading} from "app/modules/chat/chat.reducer";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
 import SweetAlert from 'sweetalert2-react';
+import { Storage } from 'react-jhipster';
+import {connect as startConnection } from  "app/modules/chat/websocket-chat-middleware.ts";
 
-const ChatPairing = props => {
-  const { isLoading } = props;
+
+
+
+
+class ChatPairing extends React.Component {
+
+
+  componentDidMount() {
+      console.log("componentDidMount");
+      startConnection();
+
+  }
+  render() {
+  const { isLoading } = this.props;
   return (
     <div style={{height: "100%"}}>
       {isLoading ?
         <>
           <Loader/>
           <SweetAlert
-            show={props.isFound}
+            show={this.props.isFound}
             title="Yay! Found someone!"
             text="Do you wanna talk or wait for someone else?"
             imageUrl='https://unsplash.it/400/200'
@@ -24,20 +38,21 @@ const ChatPairing = props => {
             confirmButtonColor='#3085d6'
             cancelButtonColor='#d33'
             confirmButtonText='Yes, delete it!'
-            onConfirm={props.toggleLoading}
+            onConfirm={this.props.toggleLoading}
             onCancel={() => {}}
             onClose={() => {}}
           />
         </>
         :
-        <MessagesContainer />
+        <MessagesContainer/>
       }
       <button style={{position: 'absolute', bottom: '25px'}}
-        onClick={props.toggleFoundUser}
+        onClick={this.props.toggleFoundUser}
       > FIND! </button>
 
     </div>
   )
+  }
 };
 
 
