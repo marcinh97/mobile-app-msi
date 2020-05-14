@@ -9,6 +9,7 @@ import com.sun.el.util.MessageFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -32,7 +33,7 @@ public class MessageController {
 
     @MessageMapping("/joinChat")
     @SendToUser(DESTINATION)
-    public MessageDTO enqueueUser(Principal principal) {
+    public MessageDTO enqueueUser(SimpMessageHeaderAccessor headerAccessor, Principal principal) {
         User user = userRepository.findOneByLogin(principal.getName()).get();
         if (!matchmaking.areThereAnyWaitingUsers()) {
             matchmaking.addWaitingUser(user);
