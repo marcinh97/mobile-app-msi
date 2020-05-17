@@ -1,0 +1,31 @@
+.profile-modal-username {
+  text-align: center;
+}
+
+.profile-modal-chat-button {
+  background: green;
+}
+
+.profile-modal-hobbies {
+  display: flex;
+  justify-content: center;
+  background: #2a0242;
+  color: white;
+}
+
+.profile-modal-single-hobby {
+  padding: 5px;
+  //color: black;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.profile-modal-aboutme {
+  margin: 10px;
+  color: black;
+  font-size: 1.4em;
+}
+
+.awssld__bullets {
+  display: none !important;
+}

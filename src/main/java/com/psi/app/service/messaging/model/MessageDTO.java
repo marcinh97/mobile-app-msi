@@ -15,4 +15,5 @@ public class MessageDTO {
     String senderName;
     String content;
     MessageType type;
+    UserEssentials userInformation;
 }

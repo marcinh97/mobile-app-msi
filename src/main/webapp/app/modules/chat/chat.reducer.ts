@@ -7,7 +7,8 @@ export const ACTION_TYPES = {
   TOGGLE_FOUND_USER: 'TOGGLE_FOUND_USER',
   TOGGLE_PREFERENCES: 'TOGGLE_PREFERENCES',
   RESET_LOADING: 'RESET_LOADING',
-  FIND_SOMEONE_TO_CHAT: 'FIND_SOMEONE_TO_CHAT'
+  FIND_SOMEONE_TO_CHAT: 'FIND_SOMEONE_TO_CHAT',
+  SHOW_USER_PROFILE_MODAL: 'SHOW_USER_PROFILE_MODAL'
 };
 
 // reducer
@@ -17,7 +18,8 @@ const initialState = {
   messages: [],
   isLoading: true,
   isFoundUser: false,
-  isPreferencesShown: false
+  isPreferencesShown: false,
+  isProfileModalShown: false
 };
 
 export type ChatState = Readonly<typeof initialState>;
@@ -51,8 +53,12 @@ export default (state: ChatState = initialState, action): ChatState => {
         ...state,
         isPreferencesShown: !state.isPreferencesShown
       };
+    case ACTION_TYPES.SHOW_USER_PROFILE_MODAL:
+      return {
+        ...state,
+        isProfileModalShown: !state.isProfileModalShown
+      };
     case 'POLACZ_MNIE':
-      connect();
       return {
         ...state
       };
@@ -156,4 +162,13 @@ const connectAction = () => ({
 export const connectChat = () => dispatch => {
   console.log('Connect me to chat');
   dispatch(connectAction());
+};
+
+const toggleShowProfileAction = userInfo => ({
+  type: ACTION_TYPES.SHOW_USER_PROFILE_MODAL,
+  payload: userInfo
+});
+
+export const toggleShowProfileModal = userInfo => dispatch => {
+  dispatch(toggleShowProfileAction(userInfo));
 };
