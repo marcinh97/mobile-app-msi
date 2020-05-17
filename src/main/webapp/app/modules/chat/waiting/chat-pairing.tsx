@@ -3,22 +3,17 @@ import './chair-pairing.scss'
 import {Loader} from "app/modules/chat/waiting/components/loader";
 import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
-import {toggleFoundUser, toggleLoading} from "app/modules/chat/chat.reducer";
+import {connectChat, toggleFoundUser, toggleLoading} from "app/modules/chat/chat.reducer";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
 import SweetAlert from 'sweetalert2-react';
 import { Storage } from 'react-jhipster';
-import {connect as startConnection } from  "app/modules/chat/websocket-chat-middleware.ts";
-
-
-
-
+import {connect as startConnection } from "app/config/websocket-chat-middleware.tsx";
 
 class ChatPairing extends React.Component {
-
-
   componentDidMount() {
       console.log("componentDidMount");
-      startConnection();
+      console.log(this.props.connectChat())
+      // startConnection();
 
   }
   render() {
@@ -42,6 +37,7 @@ class ChatPairing extends React.Component {
             onCancel={() => {}}
             onClose={() => {}}
           />
+          <div id="found-abc"></div>
         </>
         :
         <MessagesContainer/>
@@ -61,6 +57,6 @@ const mapStateToProps = (storeState: IRootState) => ({
   isFound: storeState.chat.isFoundUser
 });
 
-const mapDispatchToProps = { toggleLoading, toggleFoundUser };
+const mapDispatchToProps = { toggleLoading, toggleFoundUser, connectChat };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPairing);

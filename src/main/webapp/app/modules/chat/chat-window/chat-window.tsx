@@ -8,11 +8,11 @@ import {connect} from "react-redux";
 import SidebarContainer from "app/modules/chat/chat-window/components/sidebar-container";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
 
-const Chats = () => {
+const Chats = (props) => {
   return (
     <div className="chat-window">
-      <SidebarContainer />
-      <MessagesContainer />
+      <SidebarContainer user={props.match.params.user1} />
+      <MessagesContainer user={props.match.params.user1}/>
     </div>
   )
 }

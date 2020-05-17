@@ -5,11 +5,11 @@ import {connect} from "react-redux";
 import {Sidebar} from "app/modules/chat/chat-window/components/sidebar";
 
 const SidebarContainer = props => {
-  const {contacts} = props
+  const {contacts, user} = props
   return (
     <div>
-      <Sidebar contacts={contacts}/>
-      <h3 className="current-chatter-name">Anna Kowalczyk</h3>
+      {/*<Sidebar contacts={contacts}/>*/}
+      <h3 className="current-chatter-name">{user}</h3>
     </div>
   )
 }

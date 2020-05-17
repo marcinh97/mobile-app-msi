@@ -18,7 +18,8 @@ export interface IHomeProp extends RouteComponentProps<any>{
 }
 export const Home = (props: IHomeProp) => {
   const { account, isPrefShown } = props;
-
+  localStorage.setItem("currentUser", account.login)
+  localStorage.setItem("currentUserStringify", JSON.stringify(account))
   return (
     <Row>
       <Col md="9">

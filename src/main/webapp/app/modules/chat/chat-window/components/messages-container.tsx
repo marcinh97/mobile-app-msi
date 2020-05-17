@@ -8,11 +8,11 @@ import {Empty} from "app/modules/chat/chat-window/components/empty";
 import {FOUND_PERSON} from "app/shared/util/populated-data";
 
 const MessagesContainer = props => {
-  const {messages} = props;
+  const {messages, user} = props;
   return (
     <div className="Chats">
       <CurrentMessageHeaderContainer
-        name={FOUND_PERSON.name}
+        name={user}
         profileUrl={FOUND_PERSON.profileUrl}
         interests={FOUND_PERSON.interests}
       />
