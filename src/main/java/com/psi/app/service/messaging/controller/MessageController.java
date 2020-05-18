@@ -55,6 +55,7 @@ public class MessageController {
         User recipient = matchmaking.getMatchedUser(sender);
         messagingTemplate.convertAndSendToUser(recipient.getLogin(), DESTINATION, messageDTOFactory
             .createTextMessage(sender.getLogin(), message.getContent()));
+        System.out.println(String.format("Message sent from: %s to: %s.\nContent: %s", sender,recipient,message.getContent()));
         return message;
     }
 

@@ -8,6 +8,7 @@ import notificationMiddleware from './notification-middleware';
 import loggerMiddleware from './logger-middleware';
 import websocketMiddleware from './websocket-middleware';
 import { loadingBarMiddleware } from 'react-redux-loading-bar';
+import websocketChatMiddleware from './websocket-chat-middleware';
 
 const defaultMiddlewares = [
   thunkMiddleware,
@@ -16,7 +17,8 @@ const defaultMiddlewares = [
   promiseMiddleware,
   loadingBarMiddleware(),
   websocketMiddleware,
-  loggerMiddleware
+  loggerMiddleware,
+  websocketChatMiddleware
 ];
 const composedMiddlewares = middlewares =>
   process.env.NODE_ENV === 'development'

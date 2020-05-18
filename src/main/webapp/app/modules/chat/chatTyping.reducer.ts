@@ -27,5 +27,6 @@ export const setTypingValue = value => ({
 // action creators
 
 export const handleInputChange = e => dispatch => {
-  dispatch(setTypingValue(e.target.value));
+  const message = e.target.value;
+  dispatch(setTypingValue(message));
 };

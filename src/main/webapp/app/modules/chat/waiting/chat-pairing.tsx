@@ -3,64 +3,53 @@ import './chair-pairing.scss'
 import {Loader} from "app/modules/chat/waiting/components/loader";
 import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
-import {toggleFoundUser, toggleLoading} from "app/modules/chat/chat.reducer";
+import {connectChat, toggleFoundUser, toggleLoading} from "app/modules/chat/chat.reducer";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
-import SweetAlert from 'sweetalert2-react';
-import { Storage } from 'react-jhipster';
-import {connect as startConnection } from  "app/modules/chat/websocket-chat-middleware.ts";
+import ProfileModal from "app/modules/account/profile/profile-modal";
 
+export interface IChatPairing {
+  connectChat: Function;
+  isLoading: boolean;
+  isFound: boolean;
+  toggleFoundUser: Function;
+  foundUser: any
+}
 
-
-
-
-class ChatPairing extends React.Component {
-
-
+class ChatPairing extends React.Component<IChatPairing> {
   componentDidMount() {
-      console.log("componentDidMount");
-      startConnection();
-
+    console.log("componentDidMount");
+    console.log(this.props.connectChat())
   }
+
   render() {
-  const { isLoading } = this.props;
-  return (
-    <div style={{height: "100%"}}>
-      {isLoading ?
-        <>
-          <Loader/>
-          <SweetAlert
-            show={this.props.isFound}
-            title="Yay! Found someone!"
-            text="Do you wanna talk or wait for someone else?"
-            imageUrl='https://unsplash.it/400/200'
-            showCancelButton={true}
-            showCloseButton={true}
-            confirmButtonColor='#3085d6'
-            cancelButtonColor='#d33'
-            confirmButtonText='Yes, delete it!'
-            onConfirm={this.props.toggleLoading}
-            onCancel={() => {}}
-            onClose={() => {}}
-          />
-        </>
-        :
-        <MessagesContainer/>
-      }
-      <button style={{position: 'absolute', bottom: '25px'}}
-        onClick={this.props.toggleFoundUser}
-      > FIND! </button>
-
-    </div>
-  )
+    const {isLoading, isFound, toggleFoundUser, foundUser} = this.props;
+    return (
+      <div style={{height: "100%"}}>
+        {isLoading ?
+          <>
+            <Loader/>
+            <ProfileModal
+              showModal={isFound}
+              handleClose={toggleFoundUser}
+              handleValidSubmit={toggleFoundUser}
+              foundUser={JSON.stringify(foundUser)}
+            />
+          </>
+          :
+          <MessagesContainer/>
+        }
+      </div>
+    )
   }
-};
+}
 
 
 const mapStateToProps = (storeState: IRootState) => ({
   isLoading: storeState.chat.isLoading,
-  isFound: storeState.chat.isFoundUser
+  isFound: storeState.chat.isFoundUser,
+  foundUser: storeState.chat.foundUserDetails
 });
 
-const mapDispatchToProps = { toggleLoading, toggleFoundUser };
+const mapDispatchToProps = { toggleLoading, toggleFoundUser, connectChat };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPairing);

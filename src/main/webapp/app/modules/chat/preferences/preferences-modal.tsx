@@ -13,7 +13,6 @@ export interface IChatPreferencesModalProps {
   handleValidSubmit: Function
 }
 /* eslint-disable no-console */
-
 class PreferencesModal extends React.Component<IChatPreferencesModalProps> {
   render(): React.ReactNode {
     const { handleClose } = this.props;

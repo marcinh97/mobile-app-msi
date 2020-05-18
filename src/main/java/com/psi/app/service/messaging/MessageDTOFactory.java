@@ -2,7 +2,11 @@ package com.psi.app.service.messaging;
 
 import com.psi.app.service.messaging.model.MessageDTO;
 import com.psi.app.service.messaging.model.MessageType;
+import com.psi.app.service.messaging.model.UserEssentials;
 import org.springframework.stereotype.Component;
+import static java.util.Arrays.asList;
+
+import java.util.Arrays;
 
 /**
  * Created by Cinek on 22.03.2020.
@@ -18,9 +22,12 @@ public class MessageDTOFactory {
     }
 
     public MessageDTO createMatchedMessage(String matchedUserLogin) {
+        // todo - add UserInfo
+        UserEssentials userInfo = new UserEssentials(asList("http://www.op.pl", "http://www.google.com"), asList("Football", "Basketball"));
         return MessageDTO.builder()
             .content(matchedUserLogin)
             .type(MessageType.MATCHED)
+            .userInformation(userInfo)
             .build();
     }
     public MessageDTO createTextMessage(String sender, String content) {

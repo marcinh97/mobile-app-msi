@@ -1,5 +1,4 @@
-import { defaultValueMessages, IMessage } from 'app/shared/model/chat.model';
-import { connect } from 'app/modules/chat/websocket-chat-middleware';
+import { connect, sendMessage } from 'app/config/websocket-chat-middleware';
 
 export const ACTION_TYPES = {
   SEND_MESSAGE_ACTION: 'SEND_MESSAGE_ACTION',
@@ -8,16 +7,22 @@ export const ACTION_TYPES = {
   TOGGLE_FOUND_USER: 'TOGGLE_FOUND_USER',
   TOGGLE_PREFERENCES: 'TOGGLE_PREFERENCES',
   RESET_LOADING: 'RESET_LOADING',
-  FIND_SOMEONE_TO_CHAT: 'FIND_SOMEONE_TO_CHAT'
+  FIND_SOMEONE_TO_CHAT: 'FIND_SOMEONE_TO_CHAT',
+  SHOW_USER_PROFILE_MODAL: 'SHOW_USER_PROFILE_MODAL',
+  FOUND_USER_DETAILS: 'FOUND_USER_DETAILS',
+  GET_USER_DETAILS: 'GET_USER_DETAILS'
 };
 
 // reducer
 
 const initialState = {
-  messages: defaultValueMessages as ReadonlyArray<IMessage>,
+  // messages: defaultValueMessages as ReadonlyArray<IMessage>,
+  messages: [],
   isLoading: true,
   isFoundUser: false,
-  isPreferencesShown: false
+  isPreferencesShown: false,
+  isProfileModalShown: false,
+  foundUserDetails: { username: '', hobbies: [], images: [] }
 };
 
 export type ChatState = Readonly<typeof initialState>;
@@ -50,6 +55,24 @@ export default (state: ChatState = initialState, action): ChatState => {
       return {
         ...state,
         isPreferencesShown: !state.isPreferencesShown
+      };
+    case ACTION_TYPES.SHOW_USER_PROFILE_MODAL:
+      return {
+        ...state,
+        isProfileModalShown: !state.isProfileModalShown
+      };
+    case ACTION_TYPES.FOUND_USER_DETAILS:
+      return {
+        ...state,
+        foundUserDetails: action.payload
+      };
+    case ACTION_TYPES.GET_USER_DETAILS:
+      return {
+        ...state
+      };
+    case 'POLACZ_MNIE':
+      return {
+        ...state
       };
     default:
       return state;
@@ -93,8 +116,9 @@ export const handleSendingMessage = mess => dispatch => {
     isUserMessage: true,
     date: new Date()
   };
-  dispatch(sendMessageAction(obj));
   // // todo - zapisz wiadomosc
+  sendMessage(mess);
+
   // console.log(event.target)
 };
 
@@ -117,6 +141,7 @@ export const toggleLoading = () => dispatch => {
 };
 
 export const toggleFoundUser = () => dispatch => {
+  console.log('FOUND UUUUUUSER');
   dispatch(toggleFoundUserToTalkTo());
 };
 
@@ -131,4 +156,41 @@ export const handleValidSubmit = (event, values) => dispatch => {
   window.location.href = '/account/chatwait';
 
   // browserHistory
+};
+
+export const waitForOtherAction = () => ({
+  type: 'POLACZ_MNIE',
+  payload: ''
+});
+
+export const waitForOther = () => dispatch => {
+  console.log('Dudud');
+};
+
+const connectAction = () => ({
+  type: ACTION_TYPES.FIND_SOMEONE_TO_CHAT,
+  payload: ''
+});
+
+export const connectChat = () => dispatch => {
+  console.log('Connect me to chat');
+  dispatch(connectAction());
+};
+
+const toggleShowProfileAction = userInfo => ({
+  type: ACTION_TYPES.SHOW_USER_PROFILE_MODAL,
+  payload: userInfo
+});
+
+export const toggleShowProfileModal = userInfo => dispatch => {
+  dispatch(toggleShowProfileAction(userInfo));
+};
+
+const getUserDetailsAction = () => ({
+  type: ACTION_TYPES.GET_USER_DETAILS,
+  payload: ''
+});
+
+export const getUserDetails = () => dispatch => {
+  dispatch(getUserDetailsAction());
 };

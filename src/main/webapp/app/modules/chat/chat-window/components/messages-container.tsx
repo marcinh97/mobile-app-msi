@@ -6,24 +6,32 @@ import InputContainer from "app/modules/chat/chat-window/components/input-contai
 import CurrentMessageHeaderContainer from "app/modules/chat/chat-window/components/current-message-header-container";
 import {Empty} from "app/modules/chat/chat-window/components/empty";
 import {FOUND_PERSON} from "app/shared/util/populated-data";
+import {IFoundUser} from "app/config/websocket-chat-middleware";
 
 const MessagesContainer = props => {
-  const {messages} = props;
+  const foundUser:IFoundUser = props
+  console.log("Messages container:")
+  console.log(props.foundUser)
+  console.log(props.foundUser.username)
+  console.log(props.foundUser.aboutme)
+  console.log(props.foundUser.age)
+  console.log(props.foundUser.hobbies)
+  console.log(props.foundUser.images)
   return (
     <div className="Chats">
       <CurrentMessageHeaderContainer
-        name={FOUND_PERSON.name}
-        profileUrl={FOUND_PERSON.profileUrl}
-        interests={FOUND_PERSON.interests}
+        name={props.foundUser.username}
+        profileUrl={props.foundUser.images[0]}
+        interests={props.foundUser.hobbies}
       />
       {props.isEmpty ?
         <Empty
-          interests={FOUND_PERSON.interests}
-          name={FOUND_PERSON.name}
-          profileUrl={FOUND_PERSON.profileUrl}
+          interests={props.foundUser.hobbies}
+          name={props.foundUser.username}
+          profileUrl={props.foundUser.images[0]}
         />
 
-        : <Messages messages={messages}/>
+        : <Messages messages={props.messages}/>
       }
       <InputContainer/>
     </div>
@@ -32,7 +40,8 @@ const MessagesContainer = props => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   messages: storeState.chat.messages,
-  isEmpty: storeState.chat.messages.length === 0
+  isEmpty: storeState.chat.messages.length === 0,
+  foundUser: storeState.chat.foundUserDetails
 });
 
 const mapDispatchToProps = { };

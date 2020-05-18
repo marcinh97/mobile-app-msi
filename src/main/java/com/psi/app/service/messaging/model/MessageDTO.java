@@ -10,8 +10,10 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class MessageDTO {
     String senderName;
     String content;
     MessageType type;
+    UserEssentials userInformation;
 }

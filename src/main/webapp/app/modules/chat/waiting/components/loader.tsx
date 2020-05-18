@@ -11,7 +11,7 @@ export const Loader = props => {
           <span></span>
         </div>
       </div>
-      <button style={{position: 'absolute', bottom: '25px'}}> FIND! </button>
+      {/*<button style={{position: 'absolute', bottom: '25px'}}> FIND! </button>*/}
     </div>
   )
 }
