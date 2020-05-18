@@ -56,3 +56,25 @@ export const ALREADY_SAVED_MESSAGES = [
     date: new Date()
   }
 ];
+
+export const FOUND_USER_PROFILE = {
+  username: 'JanKowalski123',
+  hobbies: ['Basketball', 'Football', 'Golf'],
+  images: [
+    'https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2019/09/BoJack.jpg',
+    'https://3.bp.blogspot.com/-fyUiBNhkXEg/W6e5Vu_IyDI/AAAAAAAAIbE/LtAxxswfyToRjAyp4Nht1beSky6dp8iCACLcBGAs/s1600/bojack-horseman.jpg'
+  ],
+  aboutme: 'Jestem bardzo fajna!!!!!! ',
+  age: 33
+};
+
+export const FOUND_USER_PROFILE_TWO = {
+  username: 'Elwirka babczyk',
+  hobbies: ['manicure', 'Adele', 'music', 'Español'],
+  images: [
+    'https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2019/09/BoJack.jpg',
+    'https://3.bp.blogspot.com/-fyUiBNhkXEg/W6e5Vu_IyDI/AAAAAAAAIbE/LtAxxswfyToRjAyp4Nht1beSky6dp8iCACLcBGAs/s1600/bojack-horseman.jpg'
+  ],
+  aboutme: 'Jestem bardzo fajna!!!!!! ',
+  age: 18
+};

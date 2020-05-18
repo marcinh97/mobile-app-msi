@@ -7,44 +7,58 @@ import { AvForm, AvField, AvGroup, AvInput, AvCheckboxGroup, AvCheckbox } from '
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
+import {IFoundUser} from "app/config/websocket-chat-middleware";
+import {Link} from "react-router-dom";
 
 
 export interface IProfileModal {
   showModal: boolean;
-  username: string;
-  hobbies: Array<string>;
-  images: Array<string>;
   handleClose: Function;
-  handleValidSubmit: Function
+  handleValidSubmit: Function;
+  foundUser: string
 }
 /* eslint-disable no-console */
 
+const redirect = () => {
+  window.location.href = `/account/startchat`
+}
+
+// todo - history is undefined. We have current user in foundUserDetails in store, so
+// we can access it easily. Just need to redirect to messages page and properly show everything
 class ProfileModal extends React.Component<IProfileModal> {
   render(): React.ReactNode {
-    const { username, showModal, handleClose, handleValidSubmit, hobbies, images } = this.props;
-
+    const {foundUser, showModal, handleClose, handleValidSubmit} = this.props;
+    const user: IFoundUser = JSON.parse(foundUser)
+    const {username, hobbies, images, aboutme, age} = user
     return (
-      <Modal isOpen={this.props.showModal} toggle={handleClose} backdrop="static" id="chat-preferences-modal" autoFocus={false}>
+      <Modal isOpen={showModal} toggle={handleClose} backdrop="static" id="chat-preferences-modal" autoFocus={false}>
         <AvForm onValidSubmit={handleValidSubmit}>
           <ModalHeader toggle={handleClose}>Found a match!</ModalHeader>
           <h2 className="profile-modal-username">{username}</h2>
+          <div className="profile-modal-age">wiek: {age}</div>
           <AwesomeSlider cssModule={AwesomeSliderStyles}>
             {images.map((imgUrl, id) =>
-              <div key={`imgProfile-${id}`} data-src={imgUrl} />
+              <div key={`imgProfile-${id}`} data-src={imgUrl}/>
             )}
           </AwesomeSlider>
           <div className="profile-modal-hobbies">
             {hobbies.map(hobby => <div className="profile-modal-single-hobby">{hobby}</div>)}
           </div>
           <div className="profile-modal-aboutme">
-            Hi! I am somebody...
+            {aboutme}
           </div>
           <ModalFooter>
-            <Button color="secondary" onClick={handleClose}>
-              <FontAwesomeIcon icon="ban" />
+            <Button
+              color="secondary"
+              onClick={handleClose}
+            >
+              <FontAwesomeIcon icon="ban"/>
               &nbsp; Nah, keep looking...
             </Button>
-            <Button className="profile-modal-chat-button" color="primary" type="submit">
+            <Button
+              className="profile-modal-chat-button" color="primary" type="submit"
+              tag={Link} to="/account/startchat"
+            >
               Let&apos;s chat!
             </Button>
           </ModalFooter>

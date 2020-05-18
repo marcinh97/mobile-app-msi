@@ -9,6 +9,7 @@ import PreferencesModal from "app/modules/chat/preferences/preferences-modal";
 import {handleValidSubmit, togglePreferencesModal, toggleShowProfileModal} from "app/modules/chat/chat.reducer";
 import { withRouter } from "react-router-dom"
 import ProfileModal from "app/modules/account/profile/profile-modal";
+import {FOUND_USER_PROFILE} from "app/shared/util/populated-data";
 
 export interface IHomeProp extends RouteComponentProps<any>{
   account: any,
@@ -20,9 +21,9 @@ export interface IHomeProp extends RouteComponentProps<any>{
   handleValidSubmit: Function
 }
 export const Home = (props: IHomeProp) => {
-  const { account, isPrefShown, isProfModalShown } = props;
-  localStorage.setItem("currentUser", account.login)
-  localStorage.setItem("currentUserStringify", JSON.stringify(account))
+  const {account, isPrefShown, isProfModalShown} = props;
+  localStorage.setItem("currentUser", account.login);
+  localStorage.setItem("currentUserStringify", JSON.stringify(account));
   return (
     <Row>
       <Col md="9">
@@ -32,18 +33,8 @@ export const Home = (props: IHomeProp) => {
             <Alert color="success">You are logged in as user {account.login}.</Alert>
             <button onClick={props.togglePreferencesModal}>Chat with a random person</button>
             <button onClick={props.toggleShowProfileModal}>Show modal with profile</button>
-            <PreferencesModal showModal={isPrefShown} handleValidSubmit={props.handleValidSubmit} handleClose={props.togglePreferencesModal}/>
-            <ProfileModal
-              showModal={isProfModalShown}
-              username={'adam'}
-              handleClose={props.toggleShowProfileModal}
-              handleValidSubmit={()=>{}}
-              hobbies={['Basketball', 'Football', 'Golf']}
-             images={
-               ["https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2019/09/BoJack.jpg",
-                 "https://3.bp.blogspot.com/-fyUiBNhkXEg/W6e5Vu_IyDI/AAAAAAAAIbE/LtAxxswfyToRjAyp4Nht1beSky6dp8iCACLcBGAs/s1600/bojack-horseman.jpg"
-               ]}
-            />
+            <PreferencesModal showModal={isPrefShown} handleValidSubmit={props.handleValidSubmit}
+                              handleClose={props.togglePreferencesModal}/>
           </div>
         ) : (
           <div>
@@ -71,8 +62,5 @@ const mapStateToProps = storeState => ({
 
 
 const mapDispatchToProps = {togglePreferencesModal, handleValidSubmit, toggleShowProfileModal};
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

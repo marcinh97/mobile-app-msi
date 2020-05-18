@@ -1,5 +1,3 @@
-import { sendMessage } from 'app/config/websocket-chat-middleware';
-
 export const ACTION_TYPES = {
   SET_TYPING_VALUE: 'SET_TYPING_VALUE'
 };
@@ -31,5 +29,4 @@ export const setTypingValue = value => ({
 export const handleInputChange = e => dispatch => {
   const message = e.target.value;
   dispatch(setTypingValue(message));
-  sendMessage(message);
 };

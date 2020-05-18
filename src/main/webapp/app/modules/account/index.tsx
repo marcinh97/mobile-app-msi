@@ -14,7 +14,7 @@ const Routes = ({ match }) => (
     <ErrorBoundaryRoute path={`${match.url}/password`} component={Password} />
     <ErrorBoundaryRoute path={`${match.url}/profile`} component={Profile} />
     <ErrorBoundaryRoute path={`${match.url}/chatwait`} component={ChatPairing} />
-    <ErrorBoundaryRoute path={`${match.url}/startchat/:user1`} component={ChatWindow} />
+    <ErrorBoundaryRoute path={`${match.url}/startchat`} component={ChatWindow} />
   </div>
 );
 

@@ -1,4 +1,4 @@
-import { connect } from 'app/config/websocket-chat-middleware';
+import { connect, sendMessage } from 'app/config/websocket-chat-middleware';
 
 export const ACTION_TYPES = {
   SEND_MESSAGE_ACTION: 'SEND_MESSAGE_ACTION',
@@ -8,7 +8,9 @@ export const ACTION_TYPES = {
   TOGGLE_PREFERENCES: 'TOGGLE_PREFERENCES',
   RESET_LOADING: 'RESET_LOADING',
   FIND_SOMEONE_TO_CHAT: 'FIND_SOMEONE_TO_CHAT',
-  SHOW_USER_PROFILE_MODAL: 'SHOW_USER_PROFILE_MODAL'
+  SHOW_USER_PROFILE_MODAL: 'SHOW_USER_PROFILE_MODAL',
+  FOUND_USER_DETAILS: 'FOUND_USER_DETAILS',
+  GET_USER_DETAILS: 'GET_USER_DETAILS'
 };
 
 // reducer
@@ -19,7 +21,8 @@ const initialState = {
   isLoading: true,
   isFoundUser: false,
   isPreferencesShown: false,
-  isProfileModalShown: false
+  isProfileModalShown: false,
+  foundUserDetails: { username: '', hobbies: [], images: [] }
 };
 
 export type ChatState = Readonly<typeof initialState>;
@@ -57,6 +60,15 @@ export default (state: ChatState = initialState, action): ChatState => {
       return {
         ...state,
         isProfileModalShown: !state.isProfileModalShown
+      };
+    case ACTION_TYPES.FOUND_USER_DETAILS:
+      return {
+        ...state,
+        foundUserDetails: action.payload
+      };
+    case ACTION_TYPES.GET_USER_DETAILS:
+      return {
+        ...state
       };
     case 'POLACZ_MNIE':
       return {
@@ -104,8 +116,9 @@ export const handleSendingMessage = mess => dispatch => {
     isUserMessage: true,
     date: new Date()
   };
-  dispatch(sendMessageAction(obj));
   // // todo - zapisz wiadomosc
+  sendMessage(mess);
+
   // console.log(event.target)
 };
 
@@ -171,4 +184,13 @@ const toggleShowProfileAction = userInfo => ({
 
 export const toggleShowProfileModal = userInfo => dispatch => {
   dispatch(toggleShowProfileAction(userInfo));
+};
+
+const getUserDetailsAction = () => ({
+  type: ACTION_TYPES.GET_USER_DETAILS,
+  payload: ''
+});
+
+export const getUserDetails = () => dispatch => {
+  dispatch(getUserDetailsAction());
 };

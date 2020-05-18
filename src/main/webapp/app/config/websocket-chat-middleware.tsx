@@ -6,9 +6,8 @@ import { Storage } from 'react-jhipster';
 
 import { ACTION_TYPES as AUTH_ACTIONS } from 'app/shared/reducers/authentication';
 import { FAILURE } from 'app/shared/reducers/action-type.util';
-import {ACTION_TYPES, toggleFoundUser} from "app/modules/chat/chat.reducer";
+import {ACTION_TYPES} from "app/modules/chat/chat.reducer";
 import * as React from "react";
-import {ACTION_TYPES as ADMIN_ACTIONS} from "app/modules/administration/administration.reducer";
 
 let stompClient;
 
@@ -33,14 +32,21 @@ export const sendMessage = payload => {
   connection = createConnection();
   console.log(connection)
   console.log(stompClient)
-  // stompClient.send('/app/chat', JSON.stringify(payload));
-  //
-  // connection.then(() => {
-  //   console.log("Send mess: ")
-  //   console.log(payload)
-  //   stompClient.send('/app/chat', JSON.stringify(payload));
-  // });
+  // todo czy to dziala? xd
+  connection.then(() => {
+    console.log("Send mess: ")
+    console.log(payload)
+    stompClient.send('/app/message', JSON.stringify(payload));
+  });
 };
+
+export interface IFoundUser {
+  username: string;
+  hobbies: Array<string>;
+  images: Array<string>;
+  aboutme: string;
+  age: number
+}
 
 const subscribe = (store) => {
   connection.then(() => {
@@ -53,10 +59,9 @@ const subscribe = (store) => {
         console.log(result)
         const otherUser = result.content;
         const currentUser = localStorage.getItem("currentUser")
-        // window.location.href = `/account/startchat/${otherUser}`
 
         console.log("OTHER: " + otherUser)
-        console.log("CURR: ")
+        console.log("CURR: " + currentUser)
         console.log(store)
         console.log(localStorage.getItem("currentUser"))
         console.log(localStorage.getItem("currentUserStringify"))
@@ -64,20 +69,24 @@ const subscribe = (store) => {
           type: ACTION_TYPES.TOGGLE_FOUND_USER,
           payload: JSON.stringify(data.body)
         });
-
-        // todo jakos zmienic stan...
-
-        // window.location.href = `/account/startchat/${user1}&${user2}`
+        // todo - tutaj szczegoly
+        const foundUser:IFoundUser = {
+          username: otherUser,
+          hobbies: ['manicure', 'Adele', 'music', 'Español'],
+          images: [
+            "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2019/09/BoJack.jpg",
+            "https://3.bp.blogspot.com/-fyUiBNhkXEg/W6e5Vu_IyDI/AAAAAAAAIbE/LtAxxswfyToRjAyp4Nht1beSky6dp8iCACLcBGAs/s1600/bojack-horseman.jpg"
+          ],
+          aboutme: "Jestem bardzo fajna!!!!!! ",
+          age: Math.random()*50
+        }
+        store.dispatch({
+          type: ACTION_TYPES.FOUND_USER_DETAILS,
+          payload: foundUser
+        })
       }
-      // if (shouldRedirect) {
-      //   console.log("ZAJE")
-      //   console.log(data.body)
-      //   const obj = JSON.parse(data.body)
-      //   console.log(typeof obj)
-      //   console.log(obj)
-      // }
+
     });
-    //join chat
     stompClient.send('/app/joinChat', {});
   });
 };
