@@ -8,14 +8,14 @@ export interface IMessageHeader {
   interests: ReadonlyArray<string>,
   resetLoadingAct: EventHandler<any>
 }
-
+// todo - window.location - nie pozwolic, zeby znowu z tym samym od razu gadal
 export const CurrentMessageHeader = (props: IMessageHeader) => {
   const {name, profileUrl, interests} = props
   return (
     <div className="current-message-header">
       <ContactThumbnail urlAddress={profileUrl}/>
       <div className="current-speaker-info">
-        <FontAwesomeIcon onClick={()=>props.resetLoadingAct(name)} className="exit-conversation-icon" icon="times" fixedWidth/>
+        <FontAwesomeIcon onClick={()=>{props.resetLoadingAct(name); window.location.href='/account/chatwait'}} className="exit-conversation-icon" icon="times" fixedWidth/>
         <div className="header-name" style={{color: "white"}}>{name}</div>
         <div className="header-interests">
           {interests.map((interest, i) =>

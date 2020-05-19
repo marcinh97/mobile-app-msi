@@ -6,7 +6,14 @@ import { Storage } from 'react-jhipster';
 
 import { ACTION_TYPES as AUTH_ACTIONS } from 'app/shared/reducers/authentication';
 import { FAILURE } from 'app/shared/reducers/action-type.util';
-import {ACTION_TYPES, sendMessageAction, STOP_CHAT, stopChatNow} from "app/modules/chat/chat.reducer";
+import {
+  ACTION_TYPES,
+  AGREE_TO_TALK,
+  DISAGREE_TO_TALK,
+  sendMessageAction,
+  STOP_CHAT,
+  stopChatNow
+} from "app/modules/chat/chat.reducer";
 import * as React from "react";
 import {IMessage} from "app/shared/model/chat.model";
 
@@ -117,11 +124,25 @@ const subscribe = (store) => {
         const senderName = result.senderName
         const messageText = result.content
 
-        if (messageText === STOP_CHAT) {
+        if (messageText === STOP_CHAT && result.senderName !== 'system') {
           console.log("THIS IS A SYSTEM MESSAGE TO STOP THIS CHAT XD")
           store.dispatch({
             type: ACTION_TYPES.STOP_CURRENT_CHAT,
             payload: true
+          })
+        }
+        else if (messageText === AGREE_TO_TALK && result.senderName !== 'system') {
+          console.log("THIS IS A MESSAGE FROM SOMEONE WHO AGREED")
+          store.dispatch({
+            type: ACTION_TYPES.AGREE_TO_START_CHAT,
+            payload: 1
+          })
+        }
+        else if (messageText === DISAGREE_TO_TALK) {
+          console.log("DIS IS A MESSAGE FROM SOMEONE WHO DISAGREED")
+          store.dispatch({
+            type: ACTION_TYPES.DISAGREE_TO_START_CHAT,
+            payload: 1
           })
         }
         else {

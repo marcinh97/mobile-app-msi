@@ -8,14 +8,18 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import {IFoundUser} from "app/config/websocket-chat-middleware";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 
 export interface IProfileModal {
   showModal: boolean;
   handleClose: Function;
   handleValidSubmit: Function;
-  foundUser: string
+  foundUser: string;
+  howManyAgreed: number;
+  howManyDisagreed: number;
+  agreeToTalk: any;
+  isChatDecisionMade: boolean;
 }
 /* eslint-disable no-console */
 
@@ -27,9 +31,34 @@ const redirect = () => {
 // we can access it easily. Just need to redirect to messages page and properly show everything
 class ProfileModal extends React.Component<IProfileModal> {
   render(): React.ReactNode {
-    const {foundUser, showModal, handleClose, handleValidSubmit} = this.props;
+    const {foundUser, showModal, handleClose, handleValidSubmit,
+      howManyAgreed, howManyDisagreed, agreeToTalk, isChatDecisionMade} = this.props;
     const user: IFoundUser = JSON.parse(foundUser)
     const {username, hobbies, images, aboutme, age} = user
+    const positiveDecisionStyle = {background: "green", color: "white", padding: "3px"}
+    const negativeDecisionStyle = {background: "red", color: "white", padding: "3px"}
+    const neutralDecisionStyle = {padding: "3px"}
+
+    const yourDecisionStyle = isChatDecisionMade ? positiveDecisionStyle : neutralDecisionStyle
+    let theirDecisionStyle = neutralDecisionStyle
+
+    if (isChatDecisionMade) {
+      if (howManyAgreed === 1) {
+        theirDecisionStyle = neutralDecisionStyle
+      }
+      else if (howManyDisagreed === 1) {
+        theirDecisionStyle = negativeDecisionStyle
+      }
+    }
+    else {
+      if (howManyAgreed === 1) {
+        theirDecisionStyle = positiveDecisionStyle
+      }
+      else if (howManyDisagreed === 1) {
+        theirDecisionStyle = negativeDecisionStyle
+      }
+    }
+
     return (
       <Modal isOpen={showModal} toggle={handleClose} backdrop="static" id="chat-preferences-modal" autoFocus={false}>
         <AvForm onValidSubmit={handleValidSubmit}>
@@ -44,10 +73,14 @@ class ProfileModal extends React.Component<IProfileModal> {
           <div className="profile-modal-hobbies">
             {hobbies.map(hobby => <div className="profile-modal-single-hobby">{hobby}</div>)}
           </div>
+          <h6>agreed: {howManyAgreed}</h6>
+          <h6>disagreed: {howManyDisagreed}</h6>
           <div className="profile-modal-aboutme">
             {aboutme}
           </div>
           <ModalFooter>
+            {isChatDecisionMade ? <h6>Wait for their decision!</h6> : <h6>Wanna talk to them?</h6>}
+            <h6 style={theirDecisionStyle}>THEY</h6> <h6 style={yourDecisionStyle}>YOU</h6>
             <Button
               color="secondary"
               onClick={handleClose}
@@ -56,11 +89,14 @@ class ProfileModal extends React.Component<IProfileModal> {
               &nbsp; Keep looking...
             </Button>
             <Button
+              disabled={isChatDecisionMade}
               className="profile-modal-chat-button" color="primary" type="submit"
-              tag={Link} to="/account/startchat"
+              // tag={Link} to="/account/startchat"
+              onClick={(e) => {e.preventDefault(); agreeToTalk()}}
             >
               Let&apos;s chat!
             </Button>
+            {howManyAgreed === 2 && howManyDisagreed === 0 ? <Redirect to={"/account/startchat"}/> : ""}
           </ModalFooter>
         </AvForm>
       </Modal>

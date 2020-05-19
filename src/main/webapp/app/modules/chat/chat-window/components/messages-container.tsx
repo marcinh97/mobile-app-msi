@@ -21,7 +21,8 @@ const MessagesContainer = props => {
         interests={props.foundUser.hobbies}
       />
       {props.shouldStop ?
-        <h2>KONIEC CZATU</h2>
+        <p style={{width: "100%", textAlign: "center", fontSize: "6em", color: "#585858", marginTop: "200px"}}>
+          CHAT'S OVER 😧</p>
         :
         props.isEmpty ?
             <Empty

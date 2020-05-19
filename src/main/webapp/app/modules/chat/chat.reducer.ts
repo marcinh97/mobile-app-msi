@@ -15,7 +15,8 @@ export const ACTION_TYPES = {
   GET_USER_DETAILS: 'GET_USER_DETAILS',
   STOP_CURRENT_CHAT: 'STOP_CURRENT_CHAT',
   AGREE_TO_START_CHAT: 'AGREE_TO_START',
-  DISAGREE_TO_START_CHAT: 'DISAGREE_TO_START'
+  DISAGREE_TO_START_CHAT: 'DISAGREE_TO_START',
+  CHAT_DECISION_MADE: 'CHAT_DECISION_MADE'
 };
 
 // reducer
@@ -30,7 +31,8 @@ const initialState = {
   foundUserDetails: { username: '', hobbies: [], images: [] },
   shouldStopChat: false,
   howManyAgreed: 0,
-  howManyDisagreed: 0
+  howManyDisagreed: 0,
+  chatDecisionMade: false
 };
 
 export type ChatState = Readonly<typeof initialState>;
@@ -95,6 +97,11 @@ export default (state: ChatState = initialState, action): ChatState => {
         ...state,
         howManyDisagreed: state.howManyDisagreed + 1
       };
+    case ACTION_TYPES.CHAT_DECISION_MADE:
+      return {
+        ...state,
+        chatDecisionMade: true
+      };
     case 'POLACZ_MNIE':
       return {
         ...state
@@ -114,6 +121,16 @@ const stopChatAction = () => ({
 export const stopChatNow = () => dispatch => {
   console.log('Stopping chat...');
   dispatch(stopChatAction());
+};
+
+const makeChatDecisionAction = () => ({
+  type: ACTION_TYPES.CHAT_DECISION_MADE,
+  payload: true
+});
+
+export const makeChatDecision = () => dispatch => {
+  console.log('CHAT DECISION MADE...');
+  dispatch(makeChatDecisionAction());
 };
 
 export const sendMessageAction = message => ({
@@ -160,6 +177,47 @@ export const handleSendingMessage = mess => dispatch => {
 };
 
 export const STOP_CHAT = '@@##STOP_CHAT_123##@@';
+
+const agreeToTalkAction = () => ({
+  type: ACTION_TYPES.AGREE_TO_START_CHAT,
+  payload: ''
+});
+
+const disAgreeToTalkAction = () => ({
+  type: ACTION_TYPES.DISAGREE_TO_START_CHAT,
+  payload: ''
+});
+
+export const AGREE_TO_TALK = '@@##AGREE_TO_TALK##@@';
+export const DISAGREE_TO_TALK = '@@##DISAGREE_TO_TALK##@@';
+
+export const agreeToTalk = username => dispatch => {
+  // add how many agreed
+  console.log("LET'S TALK");
+  dispatch({
+    type: ACTION_TYPES.AGREE_TO_START_CHAT,
+    payload: ''
+  });
+  // send message with agree
+  console.log('Czekamy na potwierdzenie od ' + username);
+  dispatch({
+    type: ACTION_TYPES.CHAT_DECISION_MADE,
+    payload: ''
+  });
+  sendSystemMessage(AGREE_TO_TALK);
+
+  // wait
+};
+
+export const disagreeToTalk = () => dispatch => {
+  // send message with disagree
+  // close window
+  dispatch({
+    type: ACTION_TYPES.CHAT_DECISION_MADE,
+    payload: ''
+  });
+  sendSystemMessage(DISAGREE_TO_TALK);
+};
 
 export const resetLoadingAct = username => dispatch => {
   console.log('Przerywamy rozmowe z: ' + username);
