@@ -17,6 +17,8 @@ let connectedPromise: any = null;
 let listener: Observable<any>;
 let listenerObserver: any;
 let alreadyConnectedOnce = false;
+let currentUser;
+let otherUser;
 
 const createConnection = (): Promise<any> => new Promise((resolve, reject) => (connectedPromise = resolve));
 
@@ -29,15 +31,24 @@ export const sendMessage = payload => {
 
   console.log("before: ")
   console.log(payload)
-  connection = createConnection();
-  console.log(connection)
-  console.log(stompClient)
-  // todo czy to dziala? xd
-  connection.then(() => {
+
+  //dirty haxy -dopoki nie ogarniemy promise (czy mamy na to czas? XDD)
+    console.log(stompClient)
     console.log("Send mess: ")
     console.log(payload)
-    stompClient.send('/app/message', JSON.stringify(payload));
-  });
+    stompClient.send('/app/message', JSON.stringify({
+        senderName: currentUser,
+        content: payload
+    }));
+ // connection = createConnection();
+ // console.log(connection)
+
+  // todo czy to dziala? xd
+ // connection.then(() => {
+  //  console.log("Send mess: ")
+  //  console.log(payload)
+  //  stompClient.send('/app/message', JSON.stringify(payload));
+  //});
 };
 
 export interface IFoundUser {
@@ -55,10 +66,11 @@ const subscribe = (store) => {
       console.log('Cos przyszlo');
       const result = JSON.parse(data.body)
       const type = result.type
+      //TODO JESLI type "TEXT" , to wtedy pokaz wiadomosc na gui i usun widaomosc z pola tekstowego
       if (type === "MATCHED") {
         console.log(result)
-        const otherUser = result.content;
-        const currentUser = localStorage.getItem("currentUser")
+        otherUser = result.content;
+        currentUser = localStorage.getItem("currentUser")
 
         console.log("OTHER: " + otherUser)
         console.log("CURR: " + currentUser)
