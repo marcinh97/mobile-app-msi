@@ -67,6 +67,7 @@ const subscribe = (store) => {
       const result = JSON.parse(data.body)
       const type = result.type
       //TODO JESLI type "TEXT" , to wtedy pokaz wiadomosc na gui i usun widaomosc z pola tekstowego
+      //TODO jesli wiadomosc typu "LEAVE" - to wtedy pokaz komunikat, ze user sie rozlaczyl i wylacz czat.
       if (type === "MATCHED") {
         console.log(result)
         otherUser = result.content;
