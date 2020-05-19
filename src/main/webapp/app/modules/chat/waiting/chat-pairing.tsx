@@ -24,7 +24,7 @@ class ChatPairing extends React.Component<IChatPairing> {
   render() {
     const {isLoading, isFound, toggleFoundUser, foundUser} = this.props;
     return (
-      <div style={{height: "100%"}}>
+      <div style={{height: "100%", background:"red"}}>
         {isLoading ?
           <>
             <Loader/>

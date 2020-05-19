@@ -20,15 +20,17 @@ const MessagesContainer = props => {
         profileUrl={props.foundUser.images[0]}
         interests={props.foundUser.hobbies}
       />
-      {props.isEmpty ?
-        <Empty
-          interests={props.foundUser.hobbies}
-          name={props.foundUser.username}
-          profileUrl={props.foundUser.images[0]}
-        />
-
-        : <Messages messages={messages}/>
-      }
+      {props.shouldStop ?
+        <h2>KONIEC CZATU</h2>
+        :
+        props.isEmpty ?
+            <Empty
+              interests={props.foundUser.hobbies}
+              name={props.foundUser.username}
+              profileUrl={props.foundUser.images[0]}
+            />
+            : <Messages messages={messages}/>
+        }
       <InputContainer/>
     </div>
   )
@@ -37,7 +39,8 @@ const MessagesContainer = props => {
 const mapStateToProps = (storeState: IRootState) => ({
   messages: storeState.chat.messages,
   isEmpty: storeState.chat.messages.length === 0,
-  foundUser: storeState.chat.foundUserDetails
+  foundUser: storeState.chat.foundUserDetails,
+  shouldStop: storeState.chat.shouldStopChat
 });
 
 const mapDispatchToProps = { };

@@ -11,12 +11,13 @@ const InputContainer = props => {
       handleSendingMessage={props.handleSendingMessage}
       handleInputChange={props.handleInputChange}
       value={props.value}
-    />
+      disabled={props.shouldStopChat}/>
   )
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  value: storeState.chatTyping.value
+  value: storeState.chatTyping.value,
+  shouldStopChat: storeState.chat.shouldStopChat
 });
 
 const mapDispatchToProps = {handleInputChange, handleSendingMessage, resetLoadingAct};

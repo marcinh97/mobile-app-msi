@@ -6,7 +6,7 @@ import { Storage } from 'react-jhipster';
 
 import { ACTION_TYPES as AUTH_ACTIONS } from 'app/shared/reducers/authentication';
 import { FAILURE } from 'app/shared/reducers/action-type.util';
-import {ACTION_TYPES, sendMessageAction} from "app/modules/chat/chat.reducer";
+import {ACTION_TYPES, sendMessageAction, STOP_CHAT, stopChatNow} from "app/modules/chat/chat.reducer";
 import * as React from "react";
 import {IMessage} from "app/shared/model/chat.model";
 
@@ -28,7 +28,11 @@ const createListener = (): Observable<any> =>
     listenerObserver = observer;
   });
 
-export const sendMessage = payload => {
+export const sendSystemMessage = payload => {
+  sendMessage(payload, true)
+}
+
+export const sendMessage = (payload, isSystemMess=false) => {
 
   console.log("before: ")
   console.log(payload)
@@ -38,7 +42,7 @@ export const sendMessage = payload => {
     console.log("Send mess: ")
     console.log(payload)
     stompClient.send('/app/message', JSON.stringify({
-        senderName: currentUser,
+        senderName: isSystemMess ? "system" : currentUser,
         content: payload
     }));
  // connection = createConnection();
@@ -109,19 +113,30 @@ const subscribe = (store) => {
       }
       else if (type === "TEXT") {
         console.log("&&&& I received a message &&&&")
+
         const senderName = result.senderName
         const messageText = result.content
-        const message:IMessage = {
-          id: Math.random()*1000 | 0, // todo change to real ids
-          number: 12,
-          text: messageText,
-          isUserMessage: senderName === currentUser,
-          date: new Date()
+
+        if (messageText === STOP_CHAT) {
+          console.log("THIS IS A SYSTEM MESSAGE TO STOP THIS CHAT XD")
+          store.dispatch({
+            type: ACTION_TYPES.STOP_CURRENT_CHAT,
+            payload: true
+          })
         }
-        // currentUser
-        // todo - do dispatch wrzucic w formacie message. To jesli ktos przysyla
-        console.log(`FROM: ${senderName} TO: ${currentUser} \n Mess: ${messageText}`)
-        store.dispatch(sendMessageAction(JSON.stringify(message)))
+        else {
+          const message:IMessage = {
+            id: Math.random()*1000 | 0, // todo change to real ids
+            number: 12,
+            text: messageText,
+            isUserMessage: senderName === currentUser,
+            date: new Date()
+          }
+          // currentUser
+          // todo - do dispatch wrzucic w formacie message. To jesli ktos przysyla
+          console.log(`FROM: ${senderName} TO: ${currentUser} \n Mess: ${messageText}`)
+          store.dispatch(sendMessageAction(JSON.stringify(message)))
+        }
       }
     });
     stompClient.send('/app/joinChat', {});

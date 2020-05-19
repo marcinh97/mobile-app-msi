@@ -11,8 +11,6 @@ const SidebarContainer = props => {
   console.log(props.foundUser)
   return (
     <div>
-      {/*<Sidebar contacts={contacts}/>*/}
-      <h3 className="current-chatter-name">{foundUser.username}</h3>
     </div>
   )
 }

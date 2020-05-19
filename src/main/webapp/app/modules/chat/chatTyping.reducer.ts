@@ -30,3 +30,7 @@ export const handleInputChange = e => dispatch => {
   const message = e.target.value;
   dispatch(setTypingValue(message));
 };
+
+export const eraseInputAfterSendingMessages = () => dispatch => {
+  dispatch(setTypingValue(''));
+};

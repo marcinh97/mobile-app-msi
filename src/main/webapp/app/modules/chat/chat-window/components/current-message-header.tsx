@@ -15,7 +15,7 @@ export const CurrentMessageHeader = (props: IMessageHeader) => {
     <div className="current-message-header">
       <ContactThumbnail urlAddress={profileUrl}/>
       <div className="current-speaker-info">
-        <FontAwesomeIcon onClick={props.resetLoadingAct} className="exit-conversation-icon" icon="times" fixedWidth/>
+        <FontAwesomeIcon onClick={()=>props.resetLoadingAct(name)} className="exit-conversation-icon" icon="times" fixedWidth/>
         <div className="header-name" style={{color: "white"}}>{name}</div>
         <div className="header-interests">
           {interests.map((interest, i) =>

@@ -1,5 +1,6 @@
-import { connect, sendMessage } from 'app/config/websocket-chat-middleware';
+import { connect, sendMessage, sendSystemMessage } from 'app/config/websocket-chat-middleware';
 import { defaultValue } from 'app/shared/model/chat.model';
+import { eraseInputAfterSendingMessages, handleInputChange } from 'app/modules/chat/chatTyping.reducer';
 
 export const ACTION_TYPES = {
   SEND_MESSAGE_ACTION: 'SEND_MESSAGE_ACTION',
@@ -11,7 +12,10 @@ export const ACTION_TYPES = {
   FIND_SOMEONE_TO_CHAT: 'FIND_SOMEONE_TO_CHAT',
   SHOW_USER_PROFILE_MODAL: 'SHOW_USER_PROFILE_MODAL',
   FOUND_USER_DETAILS: 'FOUND_USER_DETAILS',
-  GET_USER_DETAILS: 'GET_USER_DETAILS'
+  GET_USER_DETAILS: 'GET_USER_DETAILS',
+  STOP_CURRENT_CHAT: 'STOP_CURRENT_CHAT',
+  AGREE_TO_START_CHAT: 'AGREE_TO_START',
+  DISAGREE_TO_START_CHAT: 'DISAGREE_TO_START'
 };
 
 // reducer
@@ -23,7 +27,10 @@ const initialState = {
   isFoundUser: false,
   isPreferencesShown: false,
   isProfileModalShown: false,
-  foundUserDetails: { username: '', hobbies: [], images: [] }
+  foundUserDetails: { username: '', hobbies: [], images: [] },
+  shouldStopChat: false,
+  howManyAgreed: 0,
+  howManyDisagreed: 0
 };
 
 export type ChatState = Readonly<typeof initialState>;
@@ -73,6 +80,21 @@ export default (state: ChatState = initialState, action): ChatState => {
       return {
         ...state
       };
+    case ACTION_TYPES.STOP_CURRENT_CHAT:
+      return {
+        ...state,
+        shouldStopChat: true
+      };
+    case ACTION_TYPES.AGREE_TO_START_CHAT:
+      return {
+        ...state,
+        howManyAgreed: state.howManyAgreed + 1
+      };
+    case ACTION_TYPES.DISAGREE_TO_START_CHAT:
+      return {
+        ...state,
+        howManyDisagreed: state.howManyDisagreed + 1
+      };
     case 'POLACZ_MNIE':
       return {
         ...state
@@ -83,6 +105,16 @@ export default (state: ChatState = initialState, action): ChatState => {
 };
 
 // actions
+
+const stopChatAction = () => ({
+  type: ACTION_TYPES.STOP_CURRENT_CHAT,
+  payload: true
+});
+
+export const stopChatNow = () => dispatch => {
+  console.log('Stopping chat...');
+  dispatch(stopChatAction());
+};
 
 export const sendMessageAction = message => ({
   type: ACTION_TYPES.SEND_MESSAGE_ACTION,
@@ -106,6 +138,7 @@ export const togglePreferencesModalAction = () => ({
 // action creators
 
 export const handleSendingMessage = mess => dispatch => {
+  eraseInputAfterSendingMessages();
   event.preventDefault();
   console.log('Wiadomosc do wysylki:');
   console.log(mess);
@@ -126,6 +159,18 @@ export const handleSendingMessage = mess => dispatch => {
   // console.log(event.target)
 };
 
+export const STOP_CHAT = '@@##STOP_CHAT_123##@@';
+
+export const resetLoadingAct = username => dispatch => {
+  console.log('Przerywamy rozmowe z: ' + username);
+  // przerwij tutaj
+  console.log('Stopping chat...');
+  dispatch(stopChatAction());
+  // wyslij wiadomosc ze przerwano
+  sendSystemMessage(STOP_CHAT);
+  dispatch(resetLoading());
+};
+
 export const setActiveUserId = id => ({
   type: ACTION_TYPES.SET_ACTIVE_USER_ID,
   payload: id
@@ -135,10 +180,6 @@ const resetLoading = () => ({
   type: ACTION_TYPES.RESET_LOADING,
   payload: ''
 });
-
-export const resetLoadingAct = () => dispatch => {
-  dispatch(resetLoading());
-};
 
 export const toggleLoading = () => dispatch => {
   dispatch(toggleIsLoading());

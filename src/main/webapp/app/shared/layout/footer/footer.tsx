@@ -6,11 +6,11 @@ import { Col, Row } from 'reactstrap';
 
 const Footer = props => (
   <div className="footer page-content">
-    <Row>
-      <Col md="12">
-        <p>Marcin Horak & Marcin Krawczyk PWr</p>
-      </Col>
-    </Row>
+    {/*<Row>*/}
+      {/*<Col md="12">*/}
+        {/*<p>Marcin Horak & Marcin Krawczyk PWr</p>*/}
+      {/*</Col>*/}
+    {/*</Row>*/}
   </div>
 );
 
