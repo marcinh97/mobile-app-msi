@@ -75,6 +75,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
         }),
     new FriendlyErrorsWebpackPlugin(),
     new BrowserSyncPlugin({
+      ghostMode: false,
       https: options.tls,
       host: 'localhost',
       port: 9000,
