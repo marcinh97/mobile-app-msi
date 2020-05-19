@@ -2,7 +2,7 @@ import React from "react";
 import {IMessage} from "app/shared/model/chat.model";
 
 export interface IMessagesList {
-  messages: ReadonlyArray<IMessage>
+  messages: ReadonlyArray<string>
 }
 
 const Chat = ({ message, isCurrentUserMessage }) => {
@@ -25,10 +25,17 @@ const Chat = ({ message, isCurrentUserMessage }) => {
 
 export const Messages = (props: IMessagesList) => {
   const {messages} = props;
+  const messParsed:Array<IMessage> = messages.map(mstr => JSON.parse(mstr))
+  console.log("MESS PARSED: ")
+  console.log(messParsed)
   return (
     <div className="message-list">
-      {messages.map(m =>
-        <Chat message={m.text} isCurrentUserMessage={m.isUserMessage} key={m.number}/>
+      {/*{messages.map(m =>*/}
+        {/*<Chat message={m.text} isCurrentUserMessage={m.isUserMessage} key={m.number}/>*/}
+      {/*)}*/}
+      {messParsed.map(m =>
+        <Chat key={m.id} message={m.text} isCurrentUserMessage={m.isUserMessage}/>
+
       )}
     </div>
   )

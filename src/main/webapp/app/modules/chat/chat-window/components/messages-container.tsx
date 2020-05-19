@@ -11,12 +11,8 @@ import {IFoundUser} from "app/config/websocket-chat-middleware";
 const MessagesContainer = props => {
   const foundUser:IFoundUser = props
   console.log("Messages container:")
-  console.log(props.foundUser)
-  console.log(props.foundUser.username)
-  console.log(props.foundUser.aboutme)
-  console.log(props.foundUser.age)
-  console.log(props.foundUser.hobbies)
-  console.log(props.foundUser.images)
+  console.log(props)
+  const messages: Array<string> = props.messages
   return (
     <div className="Chats">
       <CurrentMessageHeaderContainer
@@ -31,7 +27,7 @@ const MessagesContainer = props => {
           profileUrl={props.foundUser.images[0]}
         />
 
-        : <Messages messages={props.messages}/>
+        : <Messages messages={messages}/>
       }
       <InputContainer/>
     </div>

@@ -23,7 +23,7 @@ public class MessageDTOFactory {
 
     public MessageDTO createMatchedMessage(String matchedUserLogin) {
         // todo - add UserInfo
-        UserEssentials userInfo = new UserEssentials(asList("http://www.op.pl", "http://www.google.com"), asList("Football", "Basketball"));
+        UserEssentials userInfo = UserFactory.USERS.get(matchedUserLogin);
         return MessageDTO.builder()
             .content(matchedUserLogin)
             .type(MessageType.MATCHED)

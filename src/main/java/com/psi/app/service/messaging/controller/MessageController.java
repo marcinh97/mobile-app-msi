@@ -5,6 +5,7 @@ import com.psi.app.repository.UserRepository;
 import com.psi.app.service.messaging.Matchmaking;
 import com.psi.app.service.messaging.MessageDTOFactory;
 import com.psi.app.service.messaging.model.MessageDTO;
+import com.psi.app.service.messaging.model.MessageType;
 import com.sun.el.util.MessageFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -56,6 +57,7 @@ public class MessageController {
         messagingTemplate.convertAndSendToUser(recipient.getLogin(), DESTINATION, messageDTOFactory
             .createTextMessage(sender.getLogin(), message.getContent()));
         System.out.println(String.format("Message sent from: %s to: %s.\nContent: %s", sender,recipient,message.getContent()));
+        message.setType(MessageType.TEXT);
         return message;
     }
 

@@ -1,4 +1,5 @@
 import { connect, sendMessage } from 'app/config/websocket-chat-middleware';
+import { defaultValue } from 'app/shared/model/chat.model';
 
 export const ACTION_TYPES = {
   SEND_MESSAGE_ACTION: 'SEND_MESSAGE_ACTION',
@@ -17,7 +18,7 @@ export const ACTION_TYPES = {
 
 const initialState = {
   // messages: defaultValueMessages as ReadonlyArray<IMessage>,
-  messages: [],
+  messages: [JSON.stringify(defaultValue)],
   isLoading: true,
   isFoundUser: false,
   isPreferencesShown: false,
@@ -28,9 +29,11 @@ const initialState = {
 export type ChatState = Readonly<typeof initialState>;
 
 export default (state: ChatState = initialState, action): ChatState => {
+  console.log('DEF: ' + action.type);
   // reducer
   switch (action.type) {
     case ACTION_TYPES.SEND_MESSAGE_ACTION:
+      console.log('YES');
       return {
         ...state,
         messages: [...state.messages, action.payload]
@@ -104,8 +107,9 @@ export const togglePreferencesModalAction = () => ({
 
 export const handleSendingMessage = mess => dispatch => {
   event.preventDefault();
-  // console.log('Wiadomosc do wysylki:');
-  // console.log(mess);
+  console.log('Wiadomosc do wysylki:');
+  console.log(mess);
+  // dispatch(sendMessageAction(mess))
   // const val = "ABC"
   const text = mess;
   const obj = {

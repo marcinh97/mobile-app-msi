@@ -53,7 +53,7 @@ class ProfileModal extends React.Component<IProfileModal> {
               onClick={handleClose}
             >
               <FontAwesomeIcon icon="ban"/>
-              &nbsp; Nah, keep looking...
+              &nbsp; Keep looking...
             </Button>
             <Button
               className="profile-modal-chat-button" color="primary" type="submit"

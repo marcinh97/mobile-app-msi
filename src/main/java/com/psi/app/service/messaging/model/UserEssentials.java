@@ -10,5 +10,7 @@ import java.util.List;
 public class UserEssentials {
     private List<String> pictures;
     private List<String> hobbies;
+    private String aboutMe;
+    private int age;
 
 }

@@ -11,10 +11,10 @@ export interface IMessage {
 }
 
 export const defaultValue: Readonly<IMessage> = {
-  id: '',
+  id: -1,
   number: -1,
   text: 'First message hehehe',
-  sentBy: 'admin',
+  sentBy: 'yyyy123',
   isUserMessage: true,
   date: new Date()
 };

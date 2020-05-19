@@ -6,8 +6,9 @@ import { Storage } from 'react-jhipster';
 
 import { ACTION_TYPES as AUTH_ACTIONS } from 'app/shared/reducers/authentication';
 import { FAILURE } from 'app/shared/reducers/action-type.util';
-import {ACTION_TYPES} from "app/modules/chat/chat.reducer";
+import {ACTION_TYPES, sendMessageAction} from "app/modules/chat/chat.reducer";
 import * as React from "react";
+import {IMessage} from "app/shared/model/chat.model";
 
 let stompClient;
 
@@ -59,6 +60,13 @@ export interface IFoundUser {
   age: number
 }
 
+export interface IUserInfo {
+  hobbies: Array<string>;
+  pictures: Array<string>;
+  aboutMe: string;
+  age: number;
+}
+
 const subscribe = (store) => {
   connection.then(() => {
     subscriber = stompClient.subscribe('/user/chat', data => {
@@ -68,9 +76,13 @@ const subscribe = (store) => {
       const type = result.type
       //TODO JESLI type "TEXT" , to wtedy pokaz wiadomosc na gui i usun widaomosc z pola tekstowego
       //TODO jesli wiadomosc typu "LEAVE" - to wtedy pokaz komunikat, ze user sie rozlaczyl i wylacz czat.
+      currentUser = localStorage.getItem("currentUser")
       if (type === "MATCHED") {
         console.log(result)
         otherUser = result.content;
+        const otherUserName:string = result.content
+        const otherUserInfo:IUserInfo = result.userInformation
+
         currentUser = localStorage.getItem("currentUser")
 
         console.log("OTHER: " + otherUser)
@@ -84,21 +96,33 @@ const subscribe = (store) => {
         });
         // todo - tutaj szczegoly
         const foundUser:IFoundUser = {
-          username: otherUser,
-          hobbies: ['manicure', 'Adele', 'music', 'Español'],
-          images: [
-            "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2019/09/BoJack.jpg",
-            "https://3.bp.blogspot.com/-fyUiBNhkXEg/W6e5Vu_IyDI/AAAAAAAAIbE/LtAxxswfyToRjAyp4Nht1beSky6dp8iCACLcBGAs/s1600/bojack-horseman.jpg"
-          ],
-          aboutme: "Jestem bardzo fajna!!!!!! ",
-          age: Math.random()*50
+          username: otherUserName,
+          hobbies: otherUserInfo.hobbies,
+          images: otherUserInfo.pictures,
+          aboutme: otherUserInfo.aboutMe,
+          age: otherUserInfo.age
         }
         store.dispatch({
           type: ACTION_TYPES.FOUND_USER_DETAILS,
           payload: foundUser
         })
       }
-
+      else if (type === "TEXT") {
+        console.log("&&&& I received a message &&&&")
+        const senderName = result.senderName
+        const messageText = result.content
+        const message:IMessage = {
+          id: Math.random()*1000 | 0, // todo change to real ids
+          number: 12,
+          text: messageText,
+          isUserMessage: senderName === currentUser,
+          date: new Date()
+        }
+        // currentUser
+        // todo - do dispatch wrzucic w formacie message. To jesli ktos przysyla
+        console.log(`FROM: ${senderName} TO: ${currentUser} \n Mess: ${messageText}`)
+        store.dispatch(sendMessageAction(JSON.stringify(message)))
+      }
     });
     stompClient.send('/app/joinChat', {});
   });
