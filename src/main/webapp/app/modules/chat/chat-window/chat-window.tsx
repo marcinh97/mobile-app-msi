@@ -10,10 +10,12 @@ import MessagesContainer from "app/modules/chat/chat-window/components/messages-
 import {IFoundUser} from "app/config/websocket-chat-middleware";
 
 interface IChatMessager {
-  foundUser: IFoundUser
+  foundUser: any,
+  messages: any
 }
+/* eslint-disable no-shadow */
 
-class Chats extends React.Component {
+class Chats extends React.Component<IChatMessager> {
   render(): React.ReactNode {
     console.log("FOUND: ")
     const foundUser:IFoundUser = this.props.foundUser

@@ -8,7 +8,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import {IFoundUser} from "app/config/websocket-chat-middleware";
-import {Link, Redirect} from "react-router-dom";
 
 
 export interface IProfileModal {
@@ -20,6 +19,7 @@ export interface IProfileModal {
   howManyDisagreed: number;
   agreeToTalk: any;
   isChatDecisionMade: boolean;
+  redirectMethod: Function;
 }
 /* eslint-disable no-console */
 
@@ -32,7 +32,7 @@ const redirect = () => {
 class ProfileModal extends React.Component<IProfileModal> {
   render(): React.ReactNode {
     const {foundUser, showModal, handleClose, handleValidSubmit,
-      howManyAgreed, howManyDisagreed, agreeToTalk, isChatDecisionMade} = this.props;
+      howManyAgreed, howManyDisagreed, agreeToTalk, isChatDecisionMade, redirectMethod} = this.props;
     const user: IFoundUser = JSON.parse(foundUser)
     const {username, hobbies, images, aboutme, age} = user
     const positiveDecisionStyle = {background: "green", color: "white", padding: "3px"}
@@ -71,10 +71,8 @@ class ProfileModal extends React.Component<IProfileModal> {
             )}
           </AwesomeSlider>
           <div className="profile-modal-hobbies">
-            {hobbies.map(hobby => <div className="profile-modal-single-hobby">{hobby}</div>)}
+            {hobbies.map((hobby,i) => <div key={"hobby"+i} className="profile-modal-single-hobby">{hobby}</div>)}
           </div>
-          <h6>agreed: {howManyAgreed}</h6>
-          <h6>disagreed: {howManyDisagreed}</h6>
           <div className="profile-modal-aboutme">
             {aboutme}
           </div>
@@ -96,7 +94,7 @@ class ProfileModal extends React.Component<IProfileModal> {
             >
               Let&apos;s chat!
             </Button>
-            {howManyAgreed === 2 && howManyDisagreed === 0 ? <Redirect to={"/account/startchat"}/> : ""}
+            {howManyAgreed === 2 && howManyDisagreed === 0 ? redirectMethod() : ""}
           </ModalFooter>
         </AvForm>
       </Modal>

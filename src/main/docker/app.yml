@@ -12,6 +12,9 @@ services:
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
     ports:
       - 8080:8080
+    expose:
+      - 587
+      - 25
   mobilka-mysql:
     extends:
       file: mysql.yml

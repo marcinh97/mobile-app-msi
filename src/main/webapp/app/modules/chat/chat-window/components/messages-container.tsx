@@ -22,7 +22,7 @@ const MessagesContainer = props => {
       />
       {props.shouldStop ?
         <p style={{width: "100%", textAlign: "center", fontSize: "6em", color: "#585858", marginTop: "200px"}}>
-          CHAT'S OVER 😧</p>
+          CHAT&aposS OVER 😧</p>
         :
         props.isEmpty ?
             <Empty

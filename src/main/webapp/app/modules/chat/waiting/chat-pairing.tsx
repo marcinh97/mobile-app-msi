@@ -3,9 +3,11 @@ import './chair-pairing.scss'
 import {Loader} from "app/modules/chat/waiting/components/loader";
 import {IRootState} from "app/shared/reducers";
 import {connect} from "react-redux";
-import {agreeToTalk, connectChat, disagreeToTalk, toggleFoundUser, toggleLoading} from "app/modules/chat/chat.reducer";
+import {agreeToTalk, connectChat, disagreeToTalk, toggleFoundUser, toggleLoading, disconnectFromChatroom} from "app/modules/chat/chat.reducer";
 import MessagesContainer from "app/modules/chat/chat-window/components/messages-container";
 import ProfileModal from "app/modules/account/profile/profile-modal";
+import {Redirect} from "react-router";
+/* eslint-disable no-shadow */
 
 export interface IChatPairing {
   connectChat: Function;
@@ -18,6 +20,7 @@ export interface IChatPairing {
   agreeToTalk: Function;
   disagreeToTalk: Function;
   chatDecisionMade: boolean;
+  disconnectFromChatroom: Function;
 }
 
 class ChatPairing extends React.Component<IChatPairing> {
@@ -42,6 +45,8 @@ class ChatPairing extends React.Component<IChatPairing> {
               howManyAgreed={agreedNum}
               howManyDisagreed={disagreedNum}
               isChatDecisionMade={this.props.chatDecisionMade}
+              // todo wylaczyc websocket (zmutowac) jak rozmawiaja
+              redirectMethod={() => {return <Redirect to={"/account/startchat"}/>}}
             />
           </>
           :
@@ -62,6 +67,6 @@ const mapStateToProps = (storeState: IRootState) => ({
   chatDecisionMade: storeState.chat.chatDecisionMade
 });
 
-const mapDispatchToProps = { toggleLoading, toggleFoundUser, connectChat, agreeToTalk, disagreeToTalk };
+const mapDispatchToProps = { toggleLoading, toggleFoundUser, connectChat, agreeToTalk, disagreeToTalk, disconnectFromChatroom};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPairing);

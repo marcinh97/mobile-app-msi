@@ -4,8 +4,6 @@ import Stomp from 'webstomp-client';
 import { Observable } from 'rxjs';
 import { Storage } from 'react-jhipster';
 
-import { ACTION_TYPES as AUTH_ACTIONS } from 'app/shared/reducers/authentication';
-import { FAILURE } from 'app/shared/reducers/action-type.util';
 import {
   ACTION_TYPES,
   AGREE_TO_TALK,
@@ -35,9 +33,7 @@ const createListener = (): Observable<any> =>
     listenerObserver = observer;
   });
 
-export const sendSystemMessage = payload => {
-  sendMessage(payload, true)
-}
+
 
 export const sendMessage = (payload, isSystemMess=false) => {
 
@@ -62,6 +58,10 @@ export const sendMessage = (payload, isSystemMess=false) => {
   //  stompClient.send('/app/message', JSON.stringify(payload));
   //});
 };
+
+export const sendSystemMessage = payload => {
+  sendMessage(payload, true)
+}
 
 export interface IFoundUser {
   username: string;
@@ -147,7 +147,7 @@ const subscribe = (store) => {
         }
         else {
           const message:IMessage = {
-            id: Math.random()*1000 | 0, // todo change to real ids
+            id: Math.floor(Math.random()*1000), // todo change to real ids
             number: 12,
             text: messageText,
             isUserMessage: senderName === currentUser,
@@ -219,8 +219,8 @@ export default store => next => action => {
   if (action.type === ACTION_TYPES.FIND_SOMEONE_TO_CHAT) {
     console.log("I am finding someone to chat")
     connect(store);
-  } else if (action.type === FAILURE(AUTH_ACTIONS.GET_SESSION)) {
-    console.log("XX YY")
+  } else if (action.type === ACTION_TYPES.DISCONNECT_FROM_CHATROOM) {
+    console.log("Disconnected from chatroom....")
     unsubscribe();
     disconnect();
   }

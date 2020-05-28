@@ -1,6 +1,7 @@
 import { connect, sendMessage, sendSystemMessage } from 'app/config/websocket-chat-middleware';
 import { defaultValue } from 'app/shared/model/chat.model';
 import { eraseInputAfterSendingMessages, handleInputChange } from 'app/modules/chat/chatTyping.reducer';
+import { dispatch } from 'rxjs/internal-compatibility';
 
 export const ACTION_TYPES = {
   SEND_MESSAGE_ACTION: 'SEND_MESSAGE_ACTION',
@@ -16,14 +17,15 @@ export const ACTION_TYPES = {
   STOP_CURRENT_CHAT: 'STOP_CURRENT_CHAT',
   AGREE_TO_START_CHAT: 'AGREE_TO_START',
   DISAGREE_TO_START_CHAT: 'DISAGREE_TO_START',
-  CHAT_DECISION_MADE: 'CHAT_DECISION_MADE'
+  CHAT_DECISION_MADE: 'CHAT_DECISION_MADE',
+  DISCONNECT_FROM_CHATROOM: 'DISCONNECT_FROM_CHATROOM'
 };
 
 // reducer
 
 const initialState = {
   // messages: defaultValueMessages as ReadonlyArray<IMessage>,
-  messages: [JSON.stringify(defaultValue)],
+  messages: [],
   isLoading: true,
   isFoundUser: false,
   isPreferencesShown: false,
@@ -112,6 +114,7 @@ export default (state: ChatState = initialState, action): ChatState => {
 };
 
 // actions
+/* eslint-disable no-shadow */
 
 const stopChatAction = () => ({
   type: ACTION_TYPES.STOP_CURRENT_CHAT,
@@ -218,7 +221,10 @@ export const disagreeToTalk = () => dispatch => {
   });
   sendSystemMessage(DISAGREE_TO_TALK);
 };
-
+const resetLoading = () => ({
+  type: ACTION_TYPES.RESET_LOADING,
+  payload: ''
+});
 export const resetLoadingAct = username => dispatch => {
   console.log('Przerywamy rozmowe z: ' + username);
   // przerwij tutaj
@@ -232,11 +238,6 @@ export const resetLoadingAct = username => dispatch => {
 export const setActiveUserId = id => ({
   type: ACTION_TYPES.SET_ACTIVE_USER_ID,
   payload: id
-});
-
-const resetLoading = () => ({
-  type: ACTION_TYPES.RESET_LOADING,
-  payload: ''
 });
 
 export const toggleLoading = () => dispatch => {
@@ -296,4 +297,12 @@ const getUserDetailsAction = () => ({
 
 export const getUserDetails = () => dispatch => {
   dispatch(getUserDetailsAction());
+};
+
+export const disconnectFromChatroom = () => dispatch => {
+  console.log('I DISCONNECT YA');
+  dispatch({
+    type: ACTION_TYPES.DISCONNECT_FROM_CHATROOM,
+    payload: ''
+  });
 };
