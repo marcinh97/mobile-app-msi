@@ -8,6 +8,7 @@ import { Row, Col, Alert, Image, Card, CardImg, CardText,CardGroup, CardBody, Ca
 import PreferencesModal from "app/modules/chat/preferences/preferences-modal";
 import {handleValidSubmit, togglePreferencesModal, toggleShowProfileModal} from "app/modules/chat/chat.reducer";
 import { withRouter } from "react-router-dom"
+import { getUserImgs } from "app/shared/reducers/authentication.ts";
 import ProfileModal from "app/modules/account/profile/profile-modal";
 import {FOUND_USER_PROFILE} from "app/shared/util/populated-data";
 
@@ -18,8 +19,11 @@ export interface IHomeProp extends RouteComponentProps<any>{
   toggleShowProfileModal: any,
   isPrefShown: boolean,
   isProfModalShown: boolean,
-  handleValidSubmit: Function
+  handleValidSubmit: Function,
+  getUserImgs: any,
+  userImgs: any
 }
+
 const Pics = (props) => {
   return (
     <CardGroup>
@@ -77,6 +81,15 @@ export const Home = (props: IHomeProp) => {
               >
                 Chat with a random person
               </button>
+              <button
+                onClick={props.getUserImgs}
+              >
+                Get user imgs
+              </button>
+              <div>
+                images:
+                {props.userImgs}
+              </div>
             </div>
             <PreferencesModal showModal={isPrefShown} handleValidSubmit={props.handleValidSubmit}
                               handleClose={props.togglePreferencesModal}/>
@@ -93,6 +106,7 @@ export const Home = (props: IHomeProp) => {
           </div>
         )}
 
+
         {/*<Pics/>*/}
       </Col>
       <Col md="3" className="pad">
@@ -105,10 +119,11 @@ const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
   isPrefShown: storeState.chat.isPreferencesShown,
-  isProfModalShown: storeState.chat.isProfileModalShown
+  isProfModalShown: storeState.chat.isProfileModalShown,
+  userImgs: storeState.authentication.userImgs
 });
 
 
-const mapDispatchToProps = {togglePreferencesModal, handleValidSubmit, toggleShowProfileModal};
+const mapDispatchToProps = {togglePreferencesModal, handleValidSubmit, toggleShowProfileModal, getUserImgs};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

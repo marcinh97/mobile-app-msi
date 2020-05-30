@@ -158,7 +158,10 @@ export const togglePreferencesModalAction = () => ({
 // action creators
 
 export const handleSendingMessage = mess => dispatch => {
-  eraseInputAfterSendingMessages();
+  dispatch({
+    type: 'ERASE_VAL',
+    payload: ''
+  });
   event.preventDefault();
   console.log('Wiadomosc do wysylki:');
   console.log(mess);

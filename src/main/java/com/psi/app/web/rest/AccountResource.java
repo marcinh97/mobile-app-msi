@@ -1,6 +1,9 @@
 package com.psi.app.web.rest;
 
 import com.psi.app.domain.User;
+import com.psi.app.domain.UserImage;
+import com.psi.app.domain.dto.UserImageResponse;
+import com.psi.app.repository.UserImageRepository;
 import com.psi.app.repository.UserRepository;
 import com.psi.app.security.SecurityUtils;
 import com.psi.app.service.MailService;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing the current user's account.
@@ -42,11 +46,15 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final UserImageRepository userImageRepository;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,
+                           UserImageRepository userImageRepository) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.userImageRepository = userImageRepository;
     }
 
     /**
@@ -79,6 +87,12 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
+    }
+
+    @GetMapping("/userImgs")
+    public List<UserImageResponse> getImgs() {
+        List<UserImage> foundImages =  userImageRepository.findAll();
+        return foundImages.stream().map(UserImageResponse::of).collect(Collectors.toList());
     }
 
     /**

@@ -1,5 +1,6 @@
 export const ACTION_TYPES = {
-  SET_TYPING_VALUE: 'SET_TYPING_VALUE'
+  SET_TYPING_VALUE: 'SET_TYPING_VALUE',
+  ERASE_VAL: 'ERASE_VAL'
 };
 
 const initialState = {
@@ -14,6 +15,8 @@ export default (state: ChatTypingState = initialState, action): ChatTypingState 
   switch (action.type) {
     case ACTION_TYPES.SET_TYPING_VALUE:
       return { ...state, value: action.payload };
+    case ACTION_TYPES.ERASE_VAL:
+      return { ...state, value: '' };
     default:
       return state;
   }
@@ -32,5 +35,8 @@ export const handleInputChange = e => dispatch => {
 };
 
 export const eraseInputAfterSendingMessages = () => dispatch => {
-  dispatch(setTypingValue(''));
+  dispatch({
+    type: ACTION_TYPES.ERASE_VAL,
+    payload: ''
+  });
 };
