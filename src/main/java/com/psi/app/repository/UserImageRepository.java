@@ -12,4 +12,5 @@ public interface UserImageRepository extends JpaRepository<UserImage, Long> {
     List<UserImage> findAll();
 
     Set<UserImage> findAllByUserId(long userId);
+
 }

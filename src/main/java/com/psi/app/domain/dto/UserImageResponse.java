@@ -1,15 +1,13 @@
 package com.psi.app.domain.dto;
 
 import com.psi.app.domain.UserImage;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
 @ToString
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserImageResponse implements Serializable {

@@ -3,6 +3,7 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } 
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { IUser, defaultValue } from 'app/shared/model/user.model';
+import { act } from 'react-dom/test-utils';
 
 export const ACTION_TYPES = {
   FETCH_ROLES: 'userManagement/FETCH_ROLES',
@@ -11,8 +12,15 @@ export const ACTION_TYPES = {
   CREATE_USER: 'userManagement/CREATE_USER',
   UPDATE_USER: 'userManagement/UPDATE_USER',
   DELETE_USER: 'userManagement/DELETE_USER',
-  RESET: 'userManagement/RESET'
+  RESET: 'userManagement/RESET',
+  GET_USER_IMGS: 'userManagement/GET_USER_IMGS',
+  ADD_IMAGE: 'userManagement/ADD_IMAGE'
 };
+
+export interface IUserImg {
+  username?: string;
+  imageUrl?: string;
+}
 
 const initialState = {
   loading: false,
@@ -22,7 +30,8 @@ const initialState = {
   user: defaultValue,
   updating: false,
   updateSuccess: false,
-  totalItems: 0
+  totalItems: 0,
+  userImgs: [] as ReadonlyArray<IUserImg>
 };
 
 export type UserManagementState = Readonly<typeof initialState>;
@@ -69,6 +78,11 @@ export default (state: UserManagementState = initialState, action): UserManageme
         ...state,
         authorities: action.payload.data
       };
+    case SUCCESS(ACTION_TYPES.GET_USER_IMGS):
+      return {
+        ...state,
+        userImgs: action.payload.data
+      };
     case SUCCESS(ACTION_TYPES.FETCH_USERS):
       return {
         ...state,
@@ -101,6 +115,11 @@ export default (state: UserManagementState = initialState, action): UserManageme
       return {
         ...initialState
       };
+    case ACTION_TYPES.ADD_IMAGE:
+      return {
+        ...state,
+        userImgs: [...state.userImgs, { username: action.payload.username, imageUrl: action.payload.url }]
+      };
     default:
       return state;
   }
@@ -126,6 +145,14 @@ export const getUser: ICrudGetAction<IUser> = id => {
   return {
     type: ACTION_TYPES.FETCH_USER,
     payload: axios.get<IUser>(requestUrl)
+  };
+};
+
+export const getUserImages: ICrudGetAction<IUser> = username => {
+  const requestUrl = `api/userImgsBy?username=${username}`;
+  return {
+    type: ACTION_TYPES.GET_USER_IMGS,
+    payload: axios.get(requestUrl)
   };
 };
 
@@ -160,3 +187,63 @@ export const deleteUser: ICrudDeleteAction<IUser> = id => async dispatch => {
 export const reset = () => ({
   type: ACTION_TYPES.RESET
 });
+
+export const addImg = (username, url) => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.ADD_IMAGE,
+    payload: { username, url }
+  });
+};
+
+export const uploadImage = (imageList, account) => dispatch => {
+  // data for submit
+  console.log('I UPPPLOADDD');
+  const CLOUDINARY_URL = 'https://cors-anywhere.herokuapp.com/https://api.cloudinary.com/v1_1/dwlxoosyr/upload';
+  const CLOUDINARY_UPLOAD_PRESET = 'hkyzllo0';
+  console.log(imageList);
+  const form = new FormData();
+  form.append('file', imageList[0].file);
+  form.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  axios({
+    url: CLOUDINARY_URL,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: form
+  }).then(function(res) {
+    const url = res.data.url;
+    // document.getElementById("photo-icon").style.backgroundImage = "url('"+url+"')"
+    console.log(url);
+    console.log(account.login);
+    // const username = account.login
+    // const imageUrl = url
+    const data = {
+      username: account.login,
+      imageUrl: url
+    };
+    const form2 = new FormData();
+    form2.append('username', data.username);
+    form2.append('imageUrl', url);
+    axios
+      .post('/api/userImgs', {
+        username: data.username,
+        imageUrl: data.imageUrl
+      })
+      .then(res2 => {
+        console.log(res2.data);
+        const imageUrl = res2.data.imageUrl;
+        const user: IUser = res2.data.user;
+        console.log(imageUrl);
+        console.log(user.login);
+        const myData = {
+          username: user.login,
+          url: imageUrl
+        };
+        dispatch({
+          type: ACTION_TYPES.ADD_IMAGE,
+          payload: myData
+        });
+      });
+  });
+};
