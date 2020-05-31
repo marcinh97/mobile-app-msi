@@ -6,7 +6,6 @@ import {PreferencesSingleItem} from "app/modules/chat/preferences/components/pre
 import {PREFERENCES} from "app/shared/util/chat-preferences.constants";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-
 export interface IChatPreferencesModalProps {
   showModal: boolean;
   handleClose: Function;

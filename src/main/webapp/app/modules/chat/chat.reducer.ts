@@ -18,7 +18,9 @@ export const ACTION_TYPES = {
   AGREE_TO_START_CHAT: 'AGREE_TO_START',
   DISAGREE_TO_START_CHAT: 'DISAGREE_TO_START',
   CHAT_DECISION_MADE: 'CHAT_DECISION_MADE',
-  DISCONNECT_FROM_CHATROOM: 'DISCONNECT_FROM_CHATROOM'
+  DISCONNECT_FROM_CHATROOM: 'DISCONNECT_FROM_CHATROOM',
+  TOGGLE_PROFILE_EDITION: 'TOGGLE_PROFILE_EDITION',
+  ADD_IMAGE: 'ADD_IMAGES'
 };
 export const AGREE_TO_TALK = '@@##AGREE_TO_TALK##@@';
 
@@ -31,11 +33,13 @@ const initialState = {
   isFoundUser: false,
   isPreferencesShown: false,
   isProfileModalShown: false,
+  isProfileEditionModalShown: false,
   foundUserDetails: { username: '', hobbies: [], images: [] },
   shouldStopChat: false,
   howManyAgreed: 0,
   howManyDisagreed: 0,
-  chatDecisionMade: false
+  chatDecisionMade: false,
+  yourImages: []
 };
 
 export type ChatState = Readonly<typeof initialState>;
@@ -116,6 +120,16 @@ export default (state: ChatState = initialState, action): ChatState => {
       return {
         ...state,
         chatDecisionMade: true
+      };
+    case ACTION_TYPES.TOGGLE_PROFILE_EDITION:
+      return {
+        ...state,
+        isProfileEditionModalShown: !state.isProfileEditionModalShown
+      };
+    case ACTION_TYPES.ADD_IMAGE:
+      return {
+        ...state,
+        yourImages: [...state.yourImages, action.payload]
       };
     case 'POLACZ_MNIE':
       return {
@@ -268,6 +282,15 @@ export const togglePreferencesModal = () => dispatch => {
   dispatch(togglePreferencesModalAction());
 };
 
+const toggleProfileEditionModalAction = () => ({
+  type: ACTION_TYPES.TOGGLE_PROFILE_EDITION,
+  payload: ''
+});
+
+export const toggleProfileEditionModal = () => dispatch => {
+  dispatch(toggleProfileEditionModalAction());
+};
+
 export const handleValidSubmit = (event, values) => dispatch => {
   // console.log(values) // przygotowane do zapisu
   // browserHistory.push('/account/chatwait')
@@ -319,5 +342,12 @@ export const disconnectFromChatroom = () => dispatch => {
   dispatch({
     type: ACTION_TYPES.DISCONNECT_FROM_CHATROOM,
     payload: ''
+  });
+};
+
+export const addImage = imgUrl => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.ADD_IMAGE,
+    payload: imgUrl
   });
 };

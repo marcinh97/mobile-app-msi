@@ -1,0 +1,29 @@
+.profile-edit-photos {
+  overflow: auto;
+  width: 100%;
+}
+
+.profile-edit-photo-item {
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+  text-align: center;
+  float: left;
+}
+
+.image-item img {
+  width: 100%;
+}
+
+@media (min-width: 520px) {
+  .profile-edit-photo-item {
+    width: 248px;
+    height: 248px;
+    background-size: cover;
+    text-align: center;
+    float: left;
+  }
+  .image-item img {
+    width: 250px;
+  }
+}

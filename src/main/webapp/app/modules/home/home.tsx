@@ -7,17 +7,26 @@ import {Link, NavLink, Redirect, RouteComponentProps} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Alert, Image, Card, CardImg, CardText,CardGroup, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import PreferencesModal from "app/modules/chat/preferences/preferences-modal";
-import {handleValidSubmit, togglePreferencesModal, toggleShowProfileModal} from "app/modules/chat/chat.reducer";
+import {
+  handleValidSubmit,
+  togglePreferencesModal,
+  toggleProfileEditionModal,
+  toggleShowProfileModal
+} from "app/modules/chat/chat.reducer";
 import { withRouter } from "react-router-dom"
 import { getUserImgs } from "app/shared/reducers/authentication.ts";
+import ProfileEditModal from "app/modules/account/profile-edit/profile-edit-modal";
+import {IUser} from "app/shared/model/user.model";
 
 export interface IHomeProp extends RouteComponentProps<any>{
-  account: any,
+  account: IUser,
   isAuthenticated: boolean,
   togglePreferencesModal: any,
   toggleShowProfileModal: any,
+  toggleProfileEditionModal: any,
   isPrefShown: boolean,
   isProfModalShown: boolean,
+  isProfModalEditionShown: boolean,
   handleValidSubmit: Function,
   getUserImgs: any,
   userImgs: any
@@ -126,9 +135,11 @@ const AppDescription = () => {
 
 
 export const Home = (props: IHomeProp) => {
-  const {account, isPrefShown, isProfModalShown} = props;
+  const {account, isPrefShown, isProfModalEditionShown} = props;
   localStorage.setItem("currentUser", account.login);
   localStorage.setItem("currentUserStringify", JSON.stringify(account));
+  console.log("Acc")
+  console.log(account)
   return (
     <div id="page-top">
       {account && account.login ?
@@ -150,13 +161,18 @@ export const Home = (props: IHomeProp) => {
                     Chat with a random person
                   </div>
                   <div className="btn btn-outline btn-xl js-scroll-trigger"
-                       onClick={props.togglePreferencesModal}
+                       onClick={props.toggleProfileEditionModal}
                        style={{width: "100%"}}
                   >
                     Edit your profile
                   </div>
                   <PreferencesModal showModal={isPrefShown} handleValidSubmit={props.handleValidSubmit}
                                     handleClose={props.togglePreferencesModal}/>
+                  <ProfileEditModal showModal={isProfModalEditionShown} handleValidSubmit={() => {}}
+                                    handleClose={props.toggleProfileEditionModal}
+                                    account={account}
+                  />
+
                 </div>
               </div>
             </div>
@@ -313,10 +329,12 @@ const mapStateToProps = storeState => ({
   isAuthenticated: storeState.authentication.isAuthenticated,
   isPrefShown: storeState.chat.isPreferencesShown,
   isProfModalShown: storeState.chat.isProfileModalShown,
+  isProfModalEditionShown: storeState.chat.isProfileEditionModalShown,
   userImgs: storeState.authentication.userImgs
 });
 
 
-const mapDispatchToProps = {togglePreferencesModal, handleValidSubmit, toggleShowProfileModal, getUserImgs};
+const mapDispatchToProps = {togglePreferencesModal, handleValidSubmit, toggleShowProfileModal, getUserImgs,
+  toggleProfileEditionModal};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
