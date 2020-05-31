@@ -7,6 +7,7 @@ import CurrentMessageHeaderContainer from "app/modules/chat/chat-window/componen
 import {Empty} from "app/modules/chat/chat-window/components/empty";
 import {FOUND_PERSON} from "app/shared/util/populated-data";
 import {IFoundUser} from "app/config/websocket-chat-middleware";
+import {Redirect} from "react-router";
 
 const MessagesContainer = props => {
   const foundUser:IFoundUser = props
@@ -21,8 +22,7 @@ const MessagesContainer = props => {
         interests={props.foundUser.hobbies}
       />
       {props.shouldStop ?
-        <p style={{width: "100%", textAlign: "center", fontSize: "6em", color: "#585858", marginTop: "200px"}}>
-          CHAT&aposS OVER 😧</p>
+        <Redirect to={'/account/chatwait'}/>
         :
         props.isEmpty ?
             <Empty

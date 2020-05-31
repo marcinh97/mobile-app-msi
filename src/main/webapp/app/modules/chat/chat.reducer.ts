@@ -20,6 +20,7 @@ export const ACTION_TYPES = {
   CHAT_DECISION_MADE: 'CHAT_DECISION_MADE',
   DISCONNECT_FROM_CHATROOM: 'DISCONNECT_FROM_CHATROOM'
 };
+export const AGREE_TO_TALK = '@@##AGREE_TO_TALK##@@';
 
 // reducer
 
@@ -38,13 +39,25 @@ const initialState = {
 };
 
 export type ChatState = Readonly<typeof initialState>;
+/* eslint-disable no-case-declarations */
 
 export default (state: ChatState = initialState, action): ChatState => {
   console.log('DEF: ' + action.type);
   // reducer
   switch (action.type) {
     case ACTION_TYPES.SEND_MESSAGE_ACTION:
-      console.log('YES');
+      console.log('YES: ');
+      const payloadObj = JSON.parse(action.payload);
+      console.log(payloadObj.text);
+      console.log(AGREE_TO_TALK);
+      if (payloadObj.text === AGREE_TO_TALK) {
+        console.log('TAK RUWNE!!!');
+        return {
+          ...state,
+          messages: []
+        };
+      }
+      console.log('OMG NIE RUWNE');
       return {
         ...state,
         messages: [...state.messages, action.payload]
@@ -194,7 +207,6 @@ const disAgreeToTalkAction = () => ({
   payload: ''
 });
 
-export const AGREE_TO_TALK = '@@##AGREE_TO_TALK##@@';
 export const DISAGREE_TO_TALK = '@@##DISAGREE_TO_TALK##@@';
 
 export const agreeToTalk = username => dispatch => {
