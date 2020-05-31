@@ -22,7 +22,7 @@ const MessagesContainer = props => {
         interests={props.foundUser.hobbies}
       />
       {props.shouldStop ?
-        <Redirect to={'/account/chatwait'}/>
+        window.location.href = '/account/chatwait'
         :
         props.isEmpty ?
             <Empty

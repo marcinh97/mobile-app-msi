@@ -7,6 +7,7 @@ import { Row, Col, Alert, Button } from 'reactstrap';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
+import './register.scss'
 
 export type IRegisterProps = DispatchProps;
 
@@ -23,10 +24,10 @@ export const RegisterPage = (props: IRegisterProps) => {
   const updatePassword = event => setPassword(event.target.value);
 
   return (
-    <div>
+    <div style={{padding: '10px', color: 'white', background: 'black'}}>
       <Row className="justify-content-center">
         <Col md="8">
-          <h1 id="register-title">Registration</h1>
+          <h1 id="register-title" style={{color: 'white'}}>Registration</h1>
         </Col>
       </Row>
       <Row className="justify-content-center">
@@ -79,7 +80,9 @@ export const RegisterPage = (props: IRegisterProps) => {
                 match: { value: 'firstPassword', errorMessage: 'The password and its confirmation do not match!' }
               }}
             />
-            <Button id="register-submit" color="primary" type="submit">
+            <Button id="register-submit" color="primary" type="submit"
+              style={{background: '#747474', borderRadius: '5px'}}
+            >
               Register
             </Button>
           </AvForm>

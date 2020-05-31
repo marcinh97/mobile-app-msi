@@ -172,10 +172,13 @@ Browser Upgrade Prompt
 }
 
 .start-chat-button {
-  background: #515151; //#1d9ec6
-  color: white;
-  padding: 10px;
-  font-size: 1.5em;
+  //background: #515151; //#1d9ec6
+  //color: white;
+  //padding: 10px;
+  //font-size: 1.5em;
+  background: none;
+  border: none;
+  font-size: 2em;
 }
 
 @media (max-width: 385px) {
@@ -461,3 +464,7 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+.modal-backdrop.fade {
+  background: none;
+}
