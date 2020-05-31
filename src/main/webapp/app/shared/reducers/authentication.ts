@@ -8,7 +8,8 @@ export const ACTION_TYPES = {
   GET_SESSION: 'authentication/GET_SESSION',
   LOGOUT: 'authentication/LOGOUT',
   CLEAR_AUTH: 'authentication/CLEAR_AUTH',
-  ERROR_MESSAGE: 'authentication/ERROR_MESSAGE'
+  ERROR_MESSAGE: 'authentication/ERROR_MESSAGE',
+  USER_IMGS: 'USER_IMGS'
 };
 
 const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
@@ -24,7 +25,8 @@ const initialState = {
   redirectMessage: null as string,
   sessionHasBeenFetched: false,
   idToken: null as string,
-  logoutUrl: null as string
+  logoutUrl: null as string,
+  userImgs: []
 };
 
 export type AuthenticationState = Readonly<typeof initialState>;
@@ -91,6 +93,11 @@ export default (state: AuthenticationState = initialState, action): Authenticati
         showModalLogin: true,
         isAuthenticated: false
       };
+    case ACTION_TYPES.USER_IMGS:
+      return {
+        ...state,
+        userImgs: action.payload.data
+      };
     default:
       return state;
   }
@@ -143,5 +150,12 @@ export const clearAuthentication = messageKey => (dispatch, getState) => {
   dispatch(displayAuthError(messageKey));
   dispatch({
     type: ACTION_TYPES.CLEAR_AUTH
+  });
+};
+
+export const getUserImgs = () => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.USER_IMGS,
+    payload: axios.get('api/userImgs')
   });
 };

@@ -86,6 +86,10 @@ spring:
     name: mobilka
   jmx:
     enabled: false
+  cloud:
+    config:
+      fail-fast: false
+      enabled: false
   data:
     jpa:
       repositories:
@@ -101,6 +105,17 @@ spring:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
   messages:
     basename: i18n/messages
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: chatterizer@gmail.com
+    password: Ch@tt3r!z3r
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
   main:
     allow-bean-definition-overriding: true
   mvc:

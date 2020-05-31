@@ -14,7 +14,7 @@ public final class UserFactory {
             "https://images.unsplash.com/photo-1559554609-1361c33dd382?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60");
         List<String> hobbies = Arrays.asList("Soccer", "Rugby", "Netflix");
 
-        USERS.put("marcin97", new UserEssentials(pictures, hobbies, "I'm Marcin", 23));
+        USERS.put("admin", new UserEssentials(pictures, hobbies, "I'm an admin", 32));
 
         pictures = Arrays.asList("https://images.unsplash.com/photo-1586257097150-4d26a156d5ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80");
         hobbies = Arrays.asList("manicure", "pedicure", "Netflix");
@@ -28,7 +28,7 @@ public final class UserFactory {
             "https://iowalottery.typepad.com/.a/6a00e553ad0e27883401bb09ea04c2970d-pi");
         hobbies = Arrays.asList("geography", "Tennis", "travel");
 
-        USERS.put("admin", new UserEssentials(pictures, hobbies, "I'm an admin", 32));
+        USERS.put("marcin97", new UserEssentials(pictures, hobbies, "I'm Marcin", 23));
 
 
 
