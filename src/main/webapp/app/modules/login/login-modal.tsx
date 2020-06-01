@@ -55,7 +55,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
                 />
                 <AvGroup check inline>
                   <Label className="form-check-label">
-                    <AvInput type="checkbox" name="rememberMe" /> Remember me
+                    <AvInput type="checkbox" name="rememberMe" />
                   </Label>
                 </AvGroup>
               </Col>

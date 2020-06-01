@@ -54,3 +54,13 @@ Main page styles
 .chatterizer-description-header {
   font-size: 3em;
 }
+
+.device-description {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .device-description {
+    display: initial;
+  }
+}

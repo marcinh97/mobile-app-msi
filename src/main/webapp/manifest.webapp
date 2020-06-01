@@ -1,24 +1,24 @@
 {
-  "name": "mobilka",
-  "short_name": "mobilka",
+  "name": "Chatterizer",
+  "short_name": "ChatRZR",
   "icons": [
       {
-          "src": "./content/images/jhipster_family_member_1_head-192.png",
+          "src": "./content/images/ic_192.png",
           "sizes": "192x192",
           "type": "image/png"
       },
       {
-          "src": "./content/images/jhipster_family_member_1_head-256.png",
+          "src": "./content/images/ic_256.png",
           "sizes": "256x256",
           "type": "image/png"
       },
       {
-          "src": "./content/images/jhipster_family_member_1_head-384.png",
+          "src": "./content/images/ic_384.png",
           "sizes": "384x384",
           "type": "image/png"
       },
       {
-          "src": "./content/images/jhipster_family_member_1_head-512.png",
+          "src": "./content/images/ic_512.png",
           "sizes": "512x512",
           "type": "image/png"
       }

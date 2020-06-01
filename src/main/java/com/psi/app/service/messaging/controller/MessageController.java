@@ -24,7 +24,8 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class MessageController {
-    public final static String DESTINATION = "/chat";
+    public static final String DESTINATION = "/chat";
+    private static final String DISAGREE_MESSAGE = "@@##DISAGREE_TO_TALK##@@";
 
     private final MessageDTOFactory messageDTOFactory;
     private final SimpMessagingTemplate messagingTemplate;
@@ -41,7 +42,18 @@ public class MessageController {
             System.out.println("CINEK: PRZESLANO ENQUED");
             return messageDTOFactory.createEnquedMessage();
         } else {
-            User matchedUser = matchmaking.match(user);
+            User matchedUser = null;
+            try {
+                matchedUser = matchmaking.match(user);
+            } catch (Exception e) {
+                System.out.println(" USERS HAVE REFUSED TO TALK!!! ");
+                // cannot match, try later
+                return MessageDTO.builder()
+                    .senderName(user.getLogin())
+                    .content(user.getLogin() + " has refused. ")
+                    .type(MessageType.REFUSED)
+                    .build();
+            }
             messagingTemplate.convertAndSendToUser(matchedUser.getLogin(), DESTINATION,
                 messageDTOFactory.createMatchedMessage(user.getLogin()));
             System.out.println("CINEK: PRZESLANO MATCHED");
@@ -57,6 +69,10 @@ public class MessageController {
         messagingTemplate.convertAndSendToUser(recipient.getLogin(), DESTINATION, messageDTOFactory
             .createTextMessage(sender.getLogin(), message.getContent()));
         System.out.println(String.format("Message sent from: %s to: %s.\nContent: %s", sender,recipient,message.getContent()));
+        if (message.getContent().equals(DISAGREE_MESSAGE)) {
+            System.out.println(String.format("%s disagreed to chat with %s", sender, recipient));
+            matchmaking.disagreeToTalk(sender, recipient);
+        }
         message.setType(MessageType.TEXT);
         return message;
     }

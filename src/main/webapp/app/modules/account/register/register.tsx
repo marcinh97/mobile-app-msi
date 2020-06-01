@@ -24,7 +24,7 @@ export const RegisterPage = (props: IRegisterProps) => {
   const updatePassword = event => setPassword(event.target.value);
 
   return (
-    <div style={{padding: '10px', color: 'white', background: 'black'}}>
+    <div style={{padding: '50px 10px 10px 10px', color: 'white', background: '#434343'}}>
       <Row className="justify-content-center">
         <Col md="8">
           <h1 id="register-title" style={{color: 'white'}}>Registration</h1>

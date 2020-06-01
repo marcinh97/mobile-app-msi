@@ -169,7 +169,8 @@ describe('User management reducer tests', () => {
         user: defaultValue,
         updating: false,
         updateSuccess: false,
-        totalItems: 0
+        totalItems: 0,
+        userImgs: []
       };
       const payload = {
         ...initialState,

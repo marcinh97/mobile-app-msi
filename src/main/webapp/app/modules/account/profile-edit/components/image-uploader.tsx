@@ -66,8 +66,10 @@ class ImageUploader extends Component<IImageUploader> {
         {({ imageList, onImageUpload, onImageRemoveAll }) => (
           // write your building UI
           <div className="upload__image-wrapper">
-            <Button color="primary" onClick={onImageUpload}>Upload images</Button>&nbsp;
-            <Button color="secondary" onClick={onImageRemoveAll}>Remove all images</Button>
+            <Button color="primary" onClick={onImageUpload}
+                    style={{width: '100%', borderRadius: '5px'}}
+            >Upload image</Button>&nbsp;
+            {/*<Button color="secondary" onClick={onImageRemoveAll}>Remove all images</Button>*/}
             {imageList.map(image => (
               <div key={image.key} className="image-item">
                 <img src={image.dataURL} alt="" width="100" />

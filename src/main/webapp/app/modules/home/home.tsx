@@ -182,24 +182,7 @@ export const Home = (props: IHomeProp) => {
 
           <section className="contact bg-primary" id="contact">
             <div className="container">
-              <h2>Share it with friends!</h2>
-              <ul className="list-inline list-social">
-                <li className="list-inline-item social-twitter">
-                  <a href="#">
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li className="list-inline-item social-facebook">
-                  <a href="#">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li className="list-inline-item social-google-plus">
-                  <a href="#">
-                    <i className="fab fa-google-plus-g"></i>
-                  </a>
-                </li>
-              </ul>
+              <h2>Try it today!</h2>
             </div>
           </section>
         </>
@@ -233,7 +216,7 @@ export const Home = (props: IHomeProp) => {
                                       handleClose={props.togglePreferencesModal}/>
                   </div>
                 </div>
-                <div className="col-lg-5 my-auto">
+                <div className="col-lg-5 my-auto device-description">
                   <div className="device-container">
                     <div className="device-mockup ipad_pro portrait silver">
                       <div className="device">
@@ -279,24 +262,7 @@ export const Home = (props: IHomeProp) => {
 
           <section className="contact bg-primary" id="contact">
             <div className="container">
-              <h2>Share it with friends!</h2>
-              <ul className="list-inline list-social">
-                <li className="list-inline-item social-twitter">
-                  <a href="#">
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li className="list-inline-item social-facebook">
-                  <a href="#">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li className="list-inline-item social-google-plus">
-                  <a href="#">
-                    <i className="fab fa-google-plus-g"></i>
-                  </a>
-                </li>
-              </ul>
+              <h2>Try it today!</h2>
             </div>
           </section>
         </>
@@ -306,18 +272,7 @@ export const Home = (props: IHomeProp) => {
 
       <footer>
         <div className="container">
-          <p>&copy; Your Website 2019. All Rights Reserved.</p>
-          <ul className="list-inline">
-            <li className="list-inline-item">
-              <a href="#">Privacy</a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">Terms</a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">FAQ</a>
-            </li>
-          </ul>
+          <p>&copy; Horak, Krawczyk PWR 2020</p>
         </div>
       </footer>
     </div>

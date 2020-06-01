@@ -20,7 +20,7 @@ export const PREFERENCES = [
   {
     id: 'Cat2',
     category: 'Health',
-    subcategories: ['Drugs', 'Hospitals', 'Apap'],
+    subcategories: ['Traditional medicine', 'Hospitals', 'Apap'],
     categoryColor: '#6f8eaa',
     icon: 'heartbeat'
   },

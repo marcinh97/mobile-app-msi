@@ -63,11 +63,7 @@ class ProfileEditModal extends React.Component<IChatPreferencesModalProps> {
             <ImageUploader account={account} />
           </div>
           <ModalFooter>
-            <Button color="secondary" onClick={handleClose}>
-              <FontAwesomeIcon icon="ban" />
-              &nbsp; Close
-            </Button>
-            <Button color="primary" onClick={handleClose}>
+            <Button color="primary" onClick={handleClose} style={{borderRadius: '5px'}}>
               <FontAwesomeIcon icon="save" />
               &nbsp; Save
             </Button>

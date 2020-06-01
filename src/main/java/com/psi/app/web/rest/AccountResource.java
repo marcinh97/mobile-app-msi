@@ -95,18 +95,17 @@ public class AccountResource {
         return foundImages.stream().map(UserImageResponse::of).collect(Collectors.toList());
     }
 
-    // todo uncomment
     @GetMapping("/userImgsBy")
     public List<UserImageResponse> getUserImages(@RequestParam(value = "username") String username) {
         User user = userRepository.findOneByLogin(username).get();
         System.out.println("Show images of: " + username);
-//        return userImageRepository.findAllByUserId(user.getId());
-        return Arrays.asList(new UserImageResponse(username, "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
-            new UserImageResponse(username, "https://images.pexels.com/photos/1572328/pexels-photo-1572328.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"),
-            new UserImageResponse(username, "https://images.pexels.com/photos/908602/pexels-photo-908602.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"));
+        return userImageRepository.findAllByUserId(user.getId()).stream()
+            .map(UserImageResponse::of).collect(Collectors.toList());
+//        return Arrays.asList(new UserImageResponse(username, "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
+//            new UserImageResponse(username, "https://images.pexels.com/photos/1572328/pexels-photo-1572328.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"),
+//            new UserImageResponse(username, "https://images.pexels.com/photos/908602/pexels-photo-908602.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"));
     }
 
-    // todo uncomment
     @PostMapping("/userImgs")
     public UserImage saveUserImage(@RequestBody UserImageResponse userImageDto) {
         System.out.println("Save user image...");
@@ -115,8 +114,7 @@ public class AccountResource {
         userImage.setImageUrl(userImageDto.getImageUrl());
         User user = userRepository.findOneByLogin(userImageDto.getUsername()).get();
         userImage.setUser(user);
-        // return userImageRepository.save(userImage);
-        return userImage;
+         return userImageRepository.save(userImage);
     }
 
     /**

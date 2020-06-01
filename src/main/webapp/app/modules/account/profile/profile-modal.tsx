@@ -38,6 +38,7 @@ class ProfileModal extends React.Component<IProfileModal> {
     const positiveDecisionStyle = {background: "green", color: "white", padding: "3px"}
     const negativeDecisionStyle = {background: "red", color: "white", padding: "3px"}
     const neutralDecisionStyle = {padding: "3px"}
+    let isNegative = false
 
     const yourDecisionStyle = isChatDecisionMade ? positiveDecisionStyle : neutralDecisionStyle
     let theirDecisionStyle = neutralDecisionStyle
@@ -48,6 +49,7 @@ class ProfileModal extends React.Component<IProfileModal> {
       }
       else if (howManyDisagreed === 1) {
         theirDecisionStyle = negativeDecisionStyle
+        isNegative = true
       }
     }
     else {
@@ -56,6 +58,7 @@ class ProfileModal extends React.Component<IProfileModal> {
       }
       else if (howManyDisagreed === 1) {
         theirDecisionStyle = negativeDecisionStyle
+        isNegative = true
       }
     }
 
@@ -87,7 +90,7 @@ class ProfileModal extends React.Component<IProfileModal> {
               &nbsp; Keep looking...
             </Button>
             <Button
-              disabled={isChatDecisionMade}
+              disabled={isChatDecisionMade || isNegative}
               className="profile-modal-chat-button" color="primary" type="submit"
               // tag={Link} to="/account/startchat"
               onClick={(e) => {e.preventDefault(); agreeToTalk()}}

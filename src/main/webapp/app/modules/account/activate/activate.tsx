@@ -9,11 +9,10 @@ import { activateAction, reset } from './activate.reducer';
 
 const successAlert = (
   <Alert color="success">
-    <strong>Your user account has been activated.</strong> Please
-    <Link to="/login" className="alert-link">
-      sign in
+    <strong>Your user account has been activated.</strong>
+    <Link to="/login" className="alert-link"><br /> Log in
     </Link>
-    .
+    !
   </Alert>
 );
 
@@ -35,7 +34,7 @@ export const ActivatePage = (props: IActivateProps) => {
   }, []);
 
   return (
-    <div>
+    <div style={{background: 'red', marginTop: '-20px', padding: '10px', paddingTop: '40px'}}>
       <Row className="justify-content-center">
         <Col md="8">
           <h1>Activation</h1>
